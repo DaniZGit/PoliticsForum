@@ -11,12 +11,14 @@ Currently i only implemented 3 pages:
 
 Database name: PoliticsForum
 Migrations
-    <span>php artisan migrate --path=/database/migrations/2022_07_19_141251_create_categories_table.php</span>
-    <span>php artisan migrate --path=/database/migrations/2022_07_19_134845_create_tags_table.php</span>
 
-    <span>php artisan migrate</span>
+    php artisan migrate --path=/database/migrations/2022_07_19_141251_create_categories_table.php
+    
+    php artisan migrate --path=/database/migrations/2022_07_19_134845_create_tags_table.php   
 
-    <span>php artisan db:seed</span>
+    php artisan migrate
+
+    php artisan db:seed
 
 TODO
     - user authentication (bearer tokens, probably will use symfony)
