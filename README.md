@@ -18,9 +18,9 @@ Here is a link to 1 minute speedrun of the site: https://youtu.be/pxGDl2HJkpI
 
 # Database
 
-Database name: PoliticsForum
+Database name: politics_forum
 <br/>
-Import .sql file that is located in <b>sql</b> folder
+Import politics_forum.sql file that is located in <b>sql</b> folder
 
 Or run migrations (run all commands before running server)
 
