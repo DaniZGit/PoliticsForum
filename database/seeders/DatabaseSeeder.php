@@ -18,10 +18,67 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $amount = 15;
-        $commentAmount = 25;
-        $replyAmount = 40;
-        //\App\Models\User::factory(50)->create();
+
+        // create categories
+        \App\Models\Category::factory(1)->create([
+            'name' => 'turizem'
+        ]);
+        \App\Models\Category::factory(1)->create([
+            'name' => 'gospodarstvo'
+        ]);
+        \App\Models\Category::factory(1)->create([
+            'name' => 'kultura'
+        ]);
+        \App\Models\Category::factory(1)->create([
+            'name' => 'kmetijstvo'
+        ]);
+
+        // create tags
+
+        \App\Models\Tag::factory(1)->create([
+            'name' => 'Svoboda'
+        ]);
+
+        \App\Models\Tag::factory(1)->create([
+            'name' => 'Janša'
+        ]);
+
+        \App\Models\Tag::factory(1)->create([
+            'name' => 'Golob'
+        ]);
+
+        \App\Models\Tag::factory(1)->create([
+            'name' => 'Inflacija'
+        ]);
+
+        \App\Models\Tag::factory(1)->create([
+            'name' => 'Tujina'
+        ]);
+
+        \App\Models\Tag::factory(1)->create([
+            'name' => 'Predsednik'
+        ]);
+
+        \App\Models\Tag::factory(1)->create([
+            'name' => 'Vodstvo'
+        ]);
+
+        \App\Models\Tag::factory(1)->create([
+            'name' => 'Pravica'
+        ]);
+
+        \App\Models\Tag::factory(1)->create([
+            'name' => 'Narod'
+        ]);
+        
+        \App\Models\Tag::factory(1)->create([
+            'name' => 'Protest'
+        ]);
+
+        $amount = 60;
+        $commentAmount = 100;
+        $replyAmount = 75;
+        \App\Models\User::factory(100)->create();
         // posts
         \App\Models\Post::factory($amount)->create();
 

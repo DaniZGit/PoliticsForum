@@ -5245,12 +5245,10 @@ textarea.form-control-lg {
   outline: 0;
 }
 
-/* spremembe margin-top --> nothing*/
 .modal-dialog {
   position: relative;
   width: auto;
   margin: 0.5rem;
-  margin-top: 6vh !important;
   pointer-events: none;
 }
 .modal.fade .modal-dialog {
@@ -5269,7 +5267,6 @@ textarea.form-control-lg {
   transform: scale(1.02);
 }
 
-/* spremembe 6vh --> 1rem*/
 .modal-dialog-scrollable {
   height: calc(100% - 1rem);
 }
@@ -5300,8 +5297,7 @@ textarea.form-control-lg {
   outline: 0;
 }
 
-/* spremembe pokvaril sem ime da ne kaće gray stvari*/
-.modal-backdsrop {
+.modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;

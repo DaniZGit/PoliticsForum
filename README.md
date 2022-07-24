@@ -15,8 +15,10 @@ Currently i only implemented 3 pages:
 Database name: PoliticsForum
 Migrations
 
+    php artisan migrate:reset
+
     php artisan migrate --path=/database/migrations/2022_07_19_141251_create_categories_table.php
-    
+
     php artisan migrate --path=/database/migrations/2022_07_19_134845_create_tags_table.php   
 
     php artisan migrate
