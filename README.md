@@ -14,7 +14,9 @@ Currently i only implemented 3 pages:
 
 Database name: PoliticsForum
 <br/>
-Migrations (run all commands before running server)
+Import .sql file that is located in <b>sql</b> folder
+
+Or run migrations (run all commands before running server)
 
     php artisan migrate:reset
 
