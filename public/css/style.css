@@ -1,0 +1,51 @@
+.main-navigation {
+    height: 5vh;
+}
+
+body::before {
+    display: block;
+    content: '';
+    height: 5vh;
+}
+
+footer {
+    height: 5vh;
+}
+
+.card:hover {
+    background-color: rgb(232, 240, 243);
+}
+
+#main-section {
+    margin-bottom: 200px;
+}
+
+/* Fixing double borders on replies */
+.post-comment:nth-child(n + 2) {
+    margin-top: -2px;
+}
+
+.sidebar-categories {
+    top: calc(5vh + 1.25rem) !important; /* body::before height(3.5rem) + padding pod layout(1.25rem)*/
+    height: 90vh;
+}
+
+.sticky-header-tab {
+    top: calc(5vh);
+}
+
+#left-sidebar-top {
+    top: calc(5vh + 1.25rem) !important;
+}
+
+#right-sidebar-top {
+    top: calc(5vh + 1.25rem) !important;
+}
+/*
+#arrow-right {
+    transition: transform .2s;
+}
+
+#arrow-right:hover {
+    transform: scale(1.5);
+}*/
