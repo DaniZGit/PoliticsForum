@@ -12,6 +12,12 @@ Currently i only implemented 3 pages:
     
     /forum/{category}/{id}
 
+# Video
+
+Here is a link to 1 minute speedrun of the site: https://youtu.be/pxGDl2HJkpI
+
+# Database
+
 Database name: PoliticsForum
 <br/>
 Import .sql file that is located in <b>sql</b> folder
@@ -34,7 +40,8 @@ Running server (run on seperate terminals)
 
     npm run watch
 
-TODO
+# TODO
+
     - user authentication (bearer tokens, probably will use symfony)
     - create/edit posts
     - filter by likes, latest, etc.
