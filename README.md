@@ -9,6 +9,14 @@ Currently i only implemented 3 pages:
     /forum/{category} --> turizem, gospodarstvo, kultura, kmetijstvo
     /forum/{category}/{id}
 
+Database name: PoliticsForum
+Migrations
+    php artisan migrate --path=/database/migrations/2022_07_19_141251_create_categories_table.php
+    php artisan migrate --path=/database/migrations/2022_07_19_134845_create_tags_table.php   
+
+    php artisan migrate
+
+    php artisan db:seed
 
 TODO
     - user authentication (bearer tokens, probably will use symfony)
