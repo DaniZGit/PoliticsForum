@@ -13,7 +13,8 @@ Currently i only implemented 3 pages:
     /forum/{category}/{id}
 
 Database name: PoliticsForum
-Migrations
+<br/>
+Migrations (run all commands before running server)
 
     php artisan migrate:reset
 
@@ -24,6 +25,12 @@ Migrations
     php artisan migrate
 
     php artisan db:seed
+
+Running server
+
+    php artisan serve
+    
+    npm run watch
 
 TODO
     - user authentication (bearer tokens, probably will use symfony)
