@@ -26,10 +26,10 @@ Migrations (run all commands before running server)
 
     php artisan db:seed
 
-Running server
+Running server (run on seperate terminals)
 
     php artisan serve
-    
+
     npm run watch
 
 TODO
