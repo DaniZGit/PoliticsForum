@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,4 +21,8 @@ Route::get('/', function () {
 
 Route::get('/forum/{vue?}', function () {
     return view('forum.index');
+})->where('vue', '.*?');
+
+Route::get('/user/{vue?}', function () {
+    return view('user.index');
 })->where('vue', '.*?');

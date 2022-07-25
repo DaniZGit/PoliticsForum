@@ -16,4 +16,5 @@ mix.js('resources/js/app.js', 'public/js')
     .sourceMaps();
 
 mix.js('resources/js/forum.js', 'public/js/forum.js')
+    .js('resources/js/user.js', 'public/js/user.js')
     .vue()
