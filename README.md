@@ -12,6 +12,16 @@ Currently i only implemented 3 pages:
     
     /forum/{category}/{id}
 
+Pages being worked on:
+
+    /user
+
+    /user/login
+
+    /user/register
+
+    /user/dashboard
+
 # Video
 
 Here is a link to 1 minute speedrun of the site: https://youtu.be/pxGDl2HJkpI
