@@ -29,15 +29,16 @@ Here is a link to 1 minute speedrun of the site: https://youtu.be/pxGDl2HJkpI
 # Database (MYSQL
 
 Database name: politics_forum
+<br/>
 In .env file make sure you set database username and password according to your settings...
 <br/>
 
 ## Start project
 
-1.
+### 1.
 Import politics_forum.sql file that is located in <b>sql</b> folder
 
-2.
+### 2.
 Or run migrations (run all commands before running server)
 
     php artisan migrate:reset
