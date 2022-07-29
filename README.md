@@ -52,7 +52,7 @@ Fill the database with dummy data
 
     php artisan db:seed
 
-## Run server (run on seperate terminals)
+## Start Project (run on seperate terminals)
 First you should execute the command below to install all the needed dependencies
 
     npm install
