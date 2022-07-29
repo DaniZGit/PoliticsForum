@@ -30,7 +30,7 @@ Here is a link to 1 minute speedrun of the site: https://youtu.be/pxGDl2HJkpI
 
 Database name: politics_forum
 <br/>
-In .env file make sure you set database username and password according to your settings...
+Make sure you setup your database and add your db credentials(databaseName, username, password) to the .env.example file ...
 <br/>
 
 ## Method one
