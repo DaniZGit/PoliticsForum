@@ -47,9 +47,6 @@ run all the migrations (run all commands below before running server)
 
     php artisan migrate
 
-## Seeder
-Fill the database with dummy data
-
     php artisan db:seed
 
 ## Start Project (run on seperate terminals)
