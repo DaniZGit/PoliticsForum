@@ -26,20 +26,18 @@ Pages being worked on:
 
 Here is a link to 1 minute speedrun of the site: https://youtu.be/pxGDl2HJkpI
 
-# Database (MYSQL
+# Setup Database (MYSQL)
 
 Database name: politics_forum
 <br/>
 In .env file make sure you set database username and password according to your settings...
 <br/>
 
-## Start project
-
-### 1.
+## Method one
 Import politics_forum.sql file that is located in <b>sql</b> folder
 
-### 2.
-Or run migrations (run all commands before running server)
+## Method two
+run all the migrations (run all commands below before running server)
 
     php artisan migrate:reset
 
@@ -49,9 +47,17 @@ Or run migrations (run all commands before running server)
 
     php artisan migrate
 
+## Seeder
+Fill the database with dummy data
+
     php artisan db:seed
 
 ## Running server (run on seperate terminals)
+You might want to run
+
+    npm install
+
+to install all the dependencies first and then start the server
 
     php artisan serve
 
