@@ -1,5 +1,7 @@
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router'
+import store from './vuex.js'
+
 import UserHome from './components/user/UserHome.vue'
 import UserLogin from './components/user/authentication/UserLogin.vue'
 import UserRegister from './components/user/authentication/UserRegister.vue'
@@ -26,14 +28,16 @@ const routes = [
     },
 ]
 */
+
 const routes = [
     {
         path: '/user',
         component: UserHome,
         children: [
-            { path: '', alias: 'login', name: 'UserLogin', component: UserLogin },
-            { path: 'register', name: 'UserRegister', component: UserRegister },
-            { path: 'dashboard', name: 'UserDashboard', component: UserDashboard },
+            { path: '', redirect: '/user/dashboard' },
+            { path: 'dashboard', name: 'UserDashboard', component: UserDashboard, props: true},
+            { path: 'login', name: 'UserLogin', component: UserLogin, props: true },
+            { path: 'register', name: 'UserRegister', component: UserRegister, props: true },
         ]
     },
 ]
@@ -55,6 +59,7 @@ const router = createRouter({
 
 const app = createApp({})
 app.use(router)
+app.use(store)
 app.mount('#app')
 
 import 'bootstrap/dist/js/bootstrap.js'

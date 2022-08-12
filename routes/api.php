@@ -45,4 +45,9 @@ Route::post('/tags/store', [TagController::class, 'store']);
 
 Route::get('/posts', [PostController::class, 'index']);
 
-Route::get('/user/{id}', [UserController::class, 'getUser']);
+Route::get('/users', [UserController::class, 'getUsers']);
+Route::post('/users/login', [UserController::class, 'login']);
+Route::post('/users/register', [UserController::class, 'register']);
+Route::get('/users/logout', [UserController::class, 'logout'])
+    ->middleware('auth:sanctum');
+Route::get('/users/{id}', [UserController::class, 'getUser']);

@@ -61,7 +61,7 @@
         async created() {
             console.log("reply")
             console.log(this.comment)
-            let result = await fetch('/api/user/' + this.reply.user_id)
+            let result = await fetch('/api/users/' + this.reply.user_id)
             this.user = await result.json()
             console.log(this.user)
         }

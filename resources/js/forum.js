@@ -1,5 +1,7 @@
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router'
+import store from './vuex.js'
+
 import ForumHome from './components/forum/ForumHome.vue'
 import ForumHomeContent from './components/forum/content/ForumHomeContent.vue'
 import ForumCategoryContent from './components/forum/content/ForumCategoryContent.vue'
@@ -55,6 +57,7 @@ const router = createRouter({
 
 const app = createApp({})
 app.use(router)
+app.use(store)
 app.mount('#app')
 
 import 'bootstrap/dist/js/bootstrap.js'

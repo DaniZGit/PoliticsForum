@@ -49,6 +49,9 @@
             this.fetchCategoryNames()
 
             this.fetchTags()
+
+            console.log("authenticated user")
+            console.log(this.$store.getters.user)
         },
 
         methods: {

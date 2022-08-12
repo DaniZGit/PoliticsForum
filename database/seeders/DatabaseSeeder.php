@@ -18,8 +18,41 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
+        \App\Models\User::factory(5)->create();
+        /*
         // create categories
+        $this->createCategories();
+
+        // create tags
+
+        $this->createTags();
+
+        $amount = 60;
+        $commentAmount = 100;
+        $replyAmount = 75;
+        \App\Models\User::factory(100)->create();
+
+        // posts
+        \App\Models\Post::factory($amount)->create();
+
+        // tags
+        $tags = Tag::all();
+        $posts = Post::latest()->limit($amount)->get();
+        foreach ($posts as $post) {
+            $randNum = rand(2, count($tags));
+            $randomTags = Tag::orderBy("name", "ASC")->get()->random($randNum);
+            $post->tags()->attach($randomTags);
+        }
+
+        // comments
+        Comment::factory($commentAmount)->create();
+
+        // replies
+        Reply::factory($replyAmount)->create();
+        */
+    }
+
+    function createCategories() {
         \App\Models\Category::factory(1)->create([
             'name' => 'turizem'
         ]);
@@ -32,9 +65,9 @@ class DatabaseSeeder extends Seeder
         \App\Models\Category::factory(1)->create([
             'name' => 'kmetijstvo'
         ]);
+    }
 
-        // create tags
-
+    function createTags() {
         \App\Models\Tag::factory(1)->create([
             'name' => 'Svoboda'
         ]);
@@ -74,35 +107,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\Tag::factory(1)->create([
             'name' => 'Protest'
         ]);
-
-        $amount = 60;
-        $commentAmount = 100;
-        $replyAmount = 75;
-        \App\Models\User::factory(100)->create();
-        // posts
-        \App\Models\Post::factory($amount)->create();
-
-        // tags
-        $tags = Tag::all();
-        $posts = Post::latest()->limit($amount)->get();
-        foreach ($posts as $post) {
-            $randNum = rand(2, count($tags));
-            $randomTags = Tag::orderBy("name", "ASC")->get()->random($randNum);
-            $post->tags()->attach($randomTags);
-            //$tagIds = array_map(function($tag) { return dd($tag);}, $randomTags);
-            /*$tagIds = array();
-            foreach ($randomTags as $ind => $tag) {
-                array_push($tagIds, $tag->id);
-            }
-            $post->tags()->attach($tagIds);*/
-        }
-
-        // comments
-        Comment::factory($commentAmount)->create();
-
-        // replies
-        Reply::factory($replyAmount)->create();
-
     }
 
 }
