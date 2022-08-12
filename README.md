@@ -62,6 +62,6 @@ And then start the server
 
 # TODO
 
-    - user authentication (bearer tokens, probably will use symfony)
+    - user authentication (bearer tokens, probably will use sanctum) --> DONE (tokens are stored in Vuex state and not in cookies...)
     - create/edit posts
     - filter by likes, latest, etc.
