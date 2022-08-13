@@ -33,7 +33,7 @@ Before continuing please first run these 2 commands to install all the needed de
 
     composer install
     
-    npm install <b>or</b> yarn
+    npm install or yarn
     
 # Setup Database (MYSQL)
 
