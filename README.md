@@ -74,3 +74,4 @@ Start the server
     - create/edit posts
     - filter by likes, latest, etc.
     - user/... pages are fetching data using axios(), but forum/... pages are using fetch() -- axios is easier to work with, so <b>redoing</b> the fetches will be needed on forum/... pages !
+    - user/... pages are done with composition api, but forum/... are using old options api, sooo /forum... pages will be needing a <b>redoo</b>
