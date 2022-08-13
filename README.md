@@ -27,6 +27,14 @@ Pages being worked on:
 
 Here is a link to 1 minute speedrun of the site: https://youtu.be/pxGDl2HJkpI
 
+# Setup
+
+Before continuing please first run these 2 commands:
+
+    composer install
+    
+    npm install <b>or</b> yarn
+    
 # Setup Database (MYSQL)
 
 Database name: politics_forum
