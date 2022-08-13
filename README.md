@@ -3,6 +3,7 @@
 This is a forum based on politics
 
 It's being developed using Laravel and Vue.js
+Authorization is being done using Sanctum and Vuex(for storing tokens)
 
 Currently i only implemented 3 pages:
     
