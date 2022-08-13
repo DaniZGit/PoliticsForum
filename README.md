@@ -39,7 +39,7 @@ Before continuing please first run these 2 commands to install all the needed de
 
 Database name: politics_forum
 <br/>
-Make sure you setup your database and add your db credentials(databaseName, username, password) to the .env.example file and then rename the file to .env ...
+Make sure you setup your database and add your db credentials(databaseName, username, password) to the .env.example file and then rename the file to .env
 <br/>
 
 ## Method one
