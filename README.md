@@ -73,3 +73,4 @@ Start the server
     - user authentication (bearer tokens, probably will use sanctum) --> DONE (tokens are stored in Vuex state and not in cookies...)
     - create/edit posts
     - filter by likes, latest, etc.
+    - user/... pages are fetching data using axios(), but forum/... pages are using fetch() -- axios is easier to work with, so redoing the fetches will be needed on forum/... pages !
