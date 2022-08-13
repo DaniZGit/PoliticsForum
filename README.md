@@ -52,6 +52,7 @@ run all the migrations (run all commands below before running server)
 
 ## Start Project (run on seperate terminals)
 First you should execute the command below to install all the needed dependencies
+<b>In case</b> you get a "<b>generate key</b>" error, please first run: <b>php artisan key:generate</b>
 
     npm install
 
