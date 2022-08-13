@@ -1,27 +1,37 @@
 <template>
-    <div class="wrapper col-2 m-0 p-0">
-        <!-- Sidebar -->
-        <div class="sticky-top py-3">
-            <nav id="sidebar">
-                <ul class="list-unstyled components">
-                    <li 
-                        v-for="(tab, key) in tabs" :key="tab"
-                        class="p-2"
-                        :class="[tab.active ? 'activeTab' : '']" 
-                        @click="tabClickHandler(key)">
-                        <a class="text-decoration-none">{{ key }}</a>
-                    </li>
-                </ul>
-            </nav>
+    <div class="row p-0 m-0 w-100" v-if="store.getters.user.is_authenticated">
+        <div class="wrapper col-2 m-0 py-0 ps-3">
+            <!-- Sidebar -->
+            <div class="sticky-top py-3">
+                <nav id="sidebar">
+                    <ul class="list-unstyled components border border-primary rounded">
+                        <li 
+                            v-for="(tab, key) in tabs" :key="tab"
+                            class="p-2 tab"
+                            :class="[tab.active ? 'activeTab' : '']" 
+                            @click="tabClickHandler(key)">
+                            <a class="text-decoration-none">{{ key }}</a>
+                        </li>
+                        <li class="p-2">
+                            <button 
+                                class="btn btn-danger"
+                                @click="logoutUser"
+                                >
+                                Logout</button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
         
-
+        <div class="col-10 py-3 px-3 gx-3">
+            <user-info-tab v-if="tabs['PROFILE'].active"></user-info-tab>
+            <user-posts-tab v-if="tabs['POSTS'].active"></user-posts-tab>
+            <user-comments-tab v-if="tabs['COMMENTS'].active"></user-comments-tab>
+            <user-messages-tab v-if="tabs['MESSAGES'].active"></user-messages-tab>
+        </div>
     </div>
-    <div class="col-10">
-        <user-info-tab v-if="tabs['PROFILE'].active"></user-info-tab>
-        <user-posts-tab v-if="tabs['POSTS'].active"></user-posts-tab>
-        <user-comments-tab v-if="tabs['COMMENTS'].active"></user-comments-tab>
-    </div>
+    
 </template>
 
 <script setup>
@@ -35,6 +45,7 @@
     import UserInfoTab from './partials/UserInfoTab.vue'
     import UserPostsTab from './partials/UserPostsTab.vue'
     import UserCommentsTab from './partials/UserCommentsTab.vue'
+    import UserMessagesTab from './partials/UserMessagesTab.vue'
     
     // variables
     const cookie = VueCookie
@@ -56,6 +67,10 @@
             component: UserCommentsTab,
             active: false
         },
+        'MESSAGES': {
+            component: UserMessagesTab,
+            active: false
+        }
     })
 
     onMounted(async () => {
@@ -64,7 +79,8 @@
             router.push({ name: 'UserLogin' })
         else {
             // window.axios.Headers['Authorization'] = `Bearer ${cookie.get('token')}`
-            const res = await axios.get('/api/user', {
+            
+            const res = await axios.get('user', {
                 headers: { Authorization: `Bearer ${store.getters.user.token}` }
             })
             if (res.status === 200) {
@@ -89,12 +105,7 @@
 
     async function logoutUser() {
         // window.axios.defaults.headers.common['Authorization'] = `Bearer ${cookie.get('token')}`
-        await axios.get("sanctum/csrf-cookie");
-
-        const res = await axios.get('/api/users/logout', {
-            // headers: { Authorization: `Bearer ${cookie.get('token')}` }
-            headers: { Authorization: `Bearer ${store.getters.user.token}` }
-        })
+        const res = await axios.post('users/logout')
         
         if (res.status === 200) {
             if(res.errors) {
@@ -118,17 +129,17 @@
         text-align: center;
     }
 
-    #sidebar li:nth-child(even) {
+    .tab:nth-child(even) {
         border-top: 1px solid #0d6efd;
         border-bottom: 1px solid #0d6efd;
     }
 
-    #sidebar li:hover {
+    .tab:hover {
         cursor: pointer;
         background: #0d6efd;
         
     }
-    #sidebar li:hover a{
+    .tab:hover a{
         color: white;
         
     }
@@ -144,10 +155,6 @@
 
     .sticky-top {
         top: 5vh;
-    }
-
-    .main-content {
-
     }
 
 </style>

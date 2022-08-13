@@ -101,9 +101,9 @@ class UserController extends Controller
             'email.required' => 'Email is required.',
             'email.unique' => 'Email is already in use.',
             'email.email' => 'Please enter a valid email.',
-            'username.required' => 'username is required.',
-            'username.unique' => 'username is already in use.',
-            'username.min' => 'username needs to contain atleast 3 characters.',
+            'username.required' => 'Username is required.',
+            'username.unique' => 'Username is already in use.',
+            'username.min' => 'Username needs to contain atleast 3 characters.',
             'password.required' => 'Password is required.',
             'password.min' => 'Password needs to contain atleast 6 characters.',
             'password.confirmed' => 'The password confirmation does not match.'

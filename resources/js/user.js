@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router'
 import store from './vuex.js'
+import axios from './axios.js'
 
 import UserHome from './components/user/UserHome.vue'
 import UserLogin from './components/user/authentication/UserLogin.vue'

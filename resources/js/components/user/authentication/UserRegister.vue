@@ -93,6 +93,15 @@
                 </div>
             </div>
         </div>
+
+        <div class="row" v-if="errors.base_error">
+            <div class="d-flex justify-content-center">
+                <span class="alert alert-danger p-2 text-center d-inline-block" 
+                >
+                    {{ errors.base_error }}
+                </span>
+            </div>
+        </div>
         
         <div class="row d-flex flex-column align-items-center">
             <button 
@@ -135,6 +144,7 @@
         'username': '',
         'password': '',
         'password_confirmation': '',
+        'base_error': ''
     })
 
     onMounted(() => {
@@ -191,31 +201,48 @@
     /*                                      */
     async function registerUser() {
         loading.value = true
-        await axios.get("http://localhost:8000/sanctum/csrf-cookie");
 
-        const res = await axios.post('/api/users/register', {
-            email: user.value.email,
-            username: user.value.username,
-            password: user.value.password,
-            password_confirmation: user.value.password_confirmation
-        })
-        loading.value = false
-        if (res.status === 200) {
-            if(res.data.success) {
-                /*
-                let d = new Date();
-                d.setTime(d.getTime() + 1 * 24 * 60 * 60 * 1000);
-                cookie.set('token', res.data.token, d.toUTCString())
-                */
-                store.dispatch('user', {token: res.data.token, is_authenticated: true, data: res.data.userData})
-                router.push({ name: 'UserDashboard' })
+        await axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie');
+
+        try {
+            const res = await axios.post('users/register', {
+                email: user.value.email,
+                username: user.value.username,
+                password: user.value.password,
+                password_confirmation: user.value.password_confirmation
+            })
+            loading.value = false
+            if (res.status === 200) {
+                if(res.data.success) {
+                    /*
+                    let d = new Date();
+                    d.setTime(d.getTime() + 1 * 24 * 60 * 60 * 1000);
+                    cookie.set('token', res.data.token, d.toUTCString())
+                    */
+
+                    store.dispatch('user', {token: res.data.token, is_authenticated: true, data: res.data.userData})
+                    router.push({ name: 'UserDashboard' })
+                } else {
+                    console.log(res.data.message)
+                    errors.value.base_error = res.data.message
+                }
+                
             } else {
-                console.log(res.data.message)
+                console.log(res.data)
+            }
+        } catch (error) {
+            if (error.response) {
+                loading.value = false
+                console.log(error.response.data.errors)
+                const responseErrors = error.response.data.errors
+                Object.keys(responseErrors).forEach(key => {
+                    errors.value.base_error += responseErrors[key][0] + "\n"
+                });
             }
             
-        } else {
-            console.log(res.data)
         }
+
+        
     }
 
     /*                        */

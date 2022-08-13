@@ -2,15 +2,9 @@
 <html lang="en">
     @include('partials.header')
 <body>
-    <div id="page-container" class="position-relative">
-        
-        @include('partials.navigation')
+    <div id="app" class="position-relative">
 
-        <section class="container-fluid row m-0 p-0" id="app">
-            <router-view></router-view>
-        </section>
-
-        @include('partials.footer')
+        <router-view></router-view>
 
     </div>
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="sticky-top py-3 main-content">
+    <div class="sticky-top main-content border border-primary rounded">
         <div class="card text-center">
             <div class="card-header">
                 Featured
