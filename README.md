@@ -2,7 +2,8 @@
 
 This is a forum based on politics
 
-It's being developed using Laravel and Vue.js
+It's being developed using Laravel and Vue.js<br/>
+Authorization is being done using Sanctum and Vuex(for storing tokens)
 
 Currently i only implemented 3 pages:
     
@@ -26,11 +27,19 @@ Pages being worked on:
 
 Here is a link to 1 minute speedrun of the site: https://youtu.be/pxGDl2HJkpI
 
+# Setup
+
+Before continuing please first run these 2 commands to install all the needed dependencies:
+
+    composer install
+    
+    npm install
+    
 # Setup Database (MYSQL)
 
 Database name: politics_forum
 <br/>
-Make sure you setup your database and add your db credentials(databaseName, username, password) to the .env.example file ...
+Make sure you setup your database and add your db credentials(databaseName, username, password) to the .env.example file and then rename the file to .env
 <br/>
 
 ## Method one
@@ -50,18 +59,19 @@ run all the migrations (run all commands below before running server)
     php artisan db:seed
 
 ## Start Project (run on seperate terminals)
-First you should execute the command below to install all the needed dependencies
 
-    npm install
-
-And then start the server
+Start the server
 
     php artisan serve
 
     npm run watch
+
+<b>In case</b> you get a "<b>generate key</b>" error, please first run: <b>php artisan key:generate</b>
 
 # TODO
 
     - user authentication (bearer tokens, probably will use sanctum) --> DONE (tokens are stored in Vuex state and not in cookies...)
     - create/edit posts
     - filter by likes, latest, etc.
+    - user/... pages are fetching data using axios(), but forum/... pages are using fetch() -- axios is easier to work with, so redoing the fetches will be needed on forum/... pages !
+    - user/... pages are done with composition api, but forum/... pages are using old options api, sooo /forum... pages will be needing a redoo
