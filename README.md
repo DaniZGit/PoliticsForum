@@ -29,7 +29,7 @@ Here is a link to 1 minute speedrun of the site: https://youtu.be/pxGDl2HJkpI
 
 # Setup
 
-Before continuing please first run these 2 commands:
+Before continuing please first run these 2 commands to install all the needed dependencies:
 
     composer install
     
@@ -59,16 +59,14 @@ run all the migrations (run all commands below before running server)
     php artisan db:seed
 
 ## Start Project (run on seperate terminals)
-First you should execute the command below to install all the needed dependencies<br/>
-<b>In case</b> you get a "<b>generate key</b>" error, please first run: <b>php artisan key:generate</b>
 
-    npm install
-
-And then start the server
+Start the server
 
     php artisan serve
 
     npm run watch
+
+<b>In case</b> you get a "<b>generate key</b>" error, please first run: <b>php artisan key:generate</b>
 
 # TODO
 
