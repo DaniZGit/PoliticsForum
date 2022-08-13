@@ -1,5 +1,6 @@
 <template>
     <!-- Modal -->
+    <Teleport to="body">
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -10,10 +11,14 @@
                 <div class="modal-body">
                     {{ post.description }}
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger w-100" data-bs-dismiss="modal">Close</button>
+                </div>
 
             </div>
         </div>
     </div>
+    </Teleport>
 
     <div class="d-flex flex-column gap-3 text-center sticky-top mb-auto" id="right-sidebar-top">
         <div>
