@@ -33,10 +33,20 @@
         },
 
         methods: {
+            /*
             refreshRightSidebar(post) {
                 this.$emit('refreshRightSidebar', post)
             },
-
+            */
         }
+    }
+</script>
+
+<script setup>
+    const emits = defineEmits(['refreshRightSidebar'])
+
+    function refreshRightSidebar(post) {
+        console.log("click2")
+        emits('refreshRightSidebar', post)
     }
 </script>

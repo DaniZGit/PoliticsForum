@@ -11,12 +11,12 @@
 
             <ul class="navbar-nav d-flex">
                 <li class="nav-item">
-                    <a href="/user/dashboard" class="nav-link text-white" v-if="store.getters.user.is_authenticated">Profile</a>
+                    <a href="/user/dashboard" class="nav-link text-white" v-if="userStore.isLoggedIn()">Profile</a>
                 </li>
-                <li class="nav-item" v-if="!store.getters.user.is_authenticated">
+                <li class="nav-item" v-if="!userStore.isLoggedIn()">
                     <a href="/user/login" class="nav-link text-white">Login</a>
                 </li>
-                <li v-if="!store.getters.user.is_authenticated">
+                <li v-if="!userStore.isLoggedIn()">
                     <a href="/user/register" class="nav-link">Register</a>
                 </li>
             </ul>
@@ -59,13 +59,14 @@
     </footer>
 
 </template>
-
+<!--
 <script>
     import ForumHomeContent from './content/ForumHomeContent.vue'
     import ForumLeftSidebar from './partials/ForumLeftSidebar.vue'
     import ForumRightSidebar from './partials/ForumRightSidebar.vue'
 
-    import { useStore } from 'vuex'
+    import { mapStores } from 'pinia'
+    import { useUserStore } from '../../stores/userStore'
 
     export default {
         components: {
@@ -81,7 +82,7 @@
                 "categoryNames": null,
                 "tags": null,
                 "activeTags": [],
-                "store": useStore()
+                "store": useUserStore()
             }
         },
 
@@ -93,7 +94,8 @@
             this.fetchTags()
 
             console.log("authenticated user")
-            console.log(this.$store.getters.user)
+            console.log(useUserStore())
+            console.log(useUserStore().user)
         },
 
         methods: {
@@ -130,6 +132,75 @@
                 console.log(activeTags)
                 this.activeTags = activeTags
             }
+        },
+
+        computed: {
+            ...mapStores(useUserStore)
         }
+    }
+</script>
+-->
+<script setup>
+    import ForumHomeContent from './content/ForumHomeContent.vue'
+    import ForumLeftSidebar from './partials/ForumLeftSidebar.vue'
+    import ForumRightSidebar from './partials/ForumRightSidebar.vue'
+
+    import { mapStores } from 'pinia'
+    import { useUserStore } from '../../stores/userStore'
+    import { ref } from '@vue/reactivity'
+    import { onMounted } from '@vue/runtime-core'
+
+    let post = ref(null)
+    let categories = ref(null)
+    let categoryNames = ref(null)
+    let tags = ref(null)
+    let activeTags = ref([])
+    let userStore = useUserStore()
+
+    onMounted(() => {
+        fetchCategories()
+
+        fetchCategoryNames()
+
+        fetchTags()
+
+        console.log("authenticated user")
+        console.log(userStore)
+        console.log(userStore.user)
+    })
+
+    // fetch functions
+    async function fetchCategories() {
+        let result = await fetch("/api/categories/posts/details")
+        categories.value = await result.json()
+        console.log(categories.value)
+    }
+
+    async function fetchCategoryNames() {
+        let result = await fetch("/api/categories/count")
+        categoryNames.value = await result.json()
+    }
+
+    async function fetchTags() {
+        let result = await fetch("/api/tags/")
+        tags.value = await result.json()
+        tags.value.sort((a,b) => {
+        if(a.name > b.name) {
+                return 1
+            } else {
+                return -1
+            }
+        })
+        console.log(tags)
+    }
+
+    // emits
+    function refreshRightSidebar (emittedPost) {
+        post.value = emittedPost
+    }
+
+    function tagsToggled(emmittedActiveTags) {
+        console.log(activeTags.value)
+        activeTags.value = emmittedActiveTags
     }
 </script>

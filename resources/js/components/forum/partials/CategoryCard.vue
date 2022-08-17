@@ -85,9 +85,10 @@
         },
 
         methods: {
+            /*
             refreshRightSidebar(post) {
                 this.$emit('refreshRightSidebar', post)
-            },
+            },*/
 
             getPageCount() {
                 return Math.ceil( this.category.posts.length / this.postsPerPage )
@@ -105,5 +106,13 @@
                 console.log(result)
             }
         }
+    }
+</script>
+
+<script setup>
+    const emits = defineEmits(['refreshRightSidebar'])
+
+    function refreshRightSidebar(post) {
+        emits('refreshRightSidebar', post)
     }
 </script>

@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router'
-import store from './vuex.js'
+import { createPinia } from 'pinia'
+import piniaPluginPersistedState from 'pinia-plugin-persistedstate'
 
 import ForumHome from './components/forum/ForumHome.vue'
 import ForumHomeContent from './components/forum/content/ForumHomeContent.vue'
@@ -55,9 +56,12 @@ const router = createRouter({
     },
 })
 
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedState)
+
 const app = createApp({})
 app.use(router)
-app.use(store)
+app.use(pinia)
 app.mount('#app')
 
 import 'bootstrap/dist/js/bootstrap.js'

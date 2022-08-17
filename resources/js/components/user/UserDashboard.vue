@@ -1,5 +1,5 @@
 <template>
-    <div class="row p-0 m-0 w-100" v-if="store.getters.user.is_authenticated">
+    <div class="row p-0 m-0 w-100" v-if="store.isLoggedIn()">
         <div class="wrapper col-2 m-0 py-0 ps-3">
             <!-- Sidebar -->
             <div class="sticky-top py-3">
@@ -38,7 +38,7 @@
     import { onMounted, ref } from "vue";
     import { useRouter, useRoute } from 'vue-router'
     import VueCookie from 'vue-cookie'
-    import { useStore } from 'vuex'
+    import { useUserStore } from '../../stores/userStore'
     import axios from 'axios'
 
     // components
@@ -51,7 +51,9 @@
     const cookie = VueCookie
     const router = useRouter()
     const route = useRoute()
-    const store = useStore()
+    const store = useUserStore()
+    console.log(store.isLoggedIn())
+    console.log(store.user.is_authenticated)
 
     let currentActiveTab = 'PROFILE'
     let tabs = ref({
@@ -74,26 +76,31 @@
     })
 
     onMounted(async () => {
-        console.log(store.getters.user)
-        if (!store.getters.user.is_authenticated)
+        console.log("hellooo")
+        
+        if (!store.isLoggedIn())
             router.push({ name: 'UserLogin' })
         else {
             // window.axios.Headers['Authorization'] = `Bearer ${cookie.get('token')}`
-            
-            const res = await axios.get('user', {
-                headers: { Authorization: `Bearer ${store.getters.user.token}` }
-            })
-            if (res.status === 200) {
-                if(res.errors) {
-                    console.log(res.errors)
+            try {
+                const res = await axios.get('user', {
+                    headers: { Authorization: `Bearer ${store.user.token}` }
+                })
+                if (res.status === 200) {
+                    if(res.errors) {
+                        console.log(res.errors)
+                    } else {
+                        console.log(res.data)
+                    }
+                    
                 } else {
                     console.log(res.data)
                 }
-                
-            } else {
-                console.log(res.data)
+            } catch (error) {
+                console.log(error)
             }
         }
+        
     })
 
     function tabClickHandler(tabKey) {
@@ -112,7 +119,7 @@
                 console.log(res.errors)
             } else {
                 //cookie.delete('token')
-                store.dispatch('user', {token: null, is_authenticated: false, data: null})
+                store.setUser({token: null, is_authenticated: false, data: null})
                 router.push({ name: 'UserLogin' })
             }
             

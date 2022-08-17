@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router'
-import store from './vuex.js'
+import { createPinia } from 'pinia'
+import piniaPluginPersistedState from 'pinia-plugin-persistedstate'
 import axios from './axios.js'
 
 import UserHome from './components/user/UserHome.vue'
@@ -36,7 +37,7 @@ const routes = [
         component: UserHome,
         children: [
             { path: '', redirect: '/user/dashboard' },
-            { path: 'dashboard', name: 'UserDashboard', component: UserDashboard, props: true},
+            { path: 'dashboard', name: 'UserDashboard', component: UserDashboard, props: true },
             { path: 'login', name: 'UserLogin', component: UserLogin, props: true },
             { path: 'register', name: 'UserRegister', component: UserRegister, props: true },
         ]
@@ -58,9 +59,12 @@ const router = createRouter({
     },
 })
 
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedState)
+
 const app = createApp({})
 app.use(router)
-app.use(store)
+app.use(pinia)
 app.mount('#app')
 
 import 'bootstrap/dist/js/bootstrap.js'

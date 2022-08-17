@@ -147,10 +147,10 @@
     import { ref } from '@vue/reactivity'
     import { onMounted } from '@vue/runtime-core'
     import { useRouter, useRoute } from 'vue-router'
-    import { useStore } from 'vuex'
+    import { useUserStore } from '../../../stores/userStore'
 
     const router = useRouter()
-    const store = useStore()
+    const store = useUserStore()
 
     // variables
     let user = ref({})
@@ -160,10 +160,10 @@
     const description = ref(null)
 
     onMounted(() => {
-        user.value = store.getters.user.data
+        user.value = store.user.data
         console.log("aaaaa")
         console.log(user)
-        console.log(store.getters.user.data)
+        console.log(store.user.data)
         console.log(user.value.name)
     })
 

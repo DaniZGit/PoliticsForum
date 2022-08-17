@@ -120,12 +120,12 @@
     import { useRouter } from 'vue-router'
     import VueCookie from 'vue-cookie'
     import axios from 'axios'
-    import { useStore } from 'vuex'
+    import { useUserStore } from '../../../stores/userStore'
 
     // variables
     const router = useRouter()
     const cookie = VueCookie
-    const store = useStore()
+    const store = useUserStore()
 
     let loading = ref(false)
     let user = ref({
@@ -148,7 +148,7 @@
     })
 
     onMounted(() => {
-        if (store.getters.user.is_authenticated)
+        if (store.isLoggedIn())
             router.push({ name: 'UserDashboard' })
     })
 
@@ -220,7 +220,7 @@
                     cookie.set('token', res.data.token, d.toUTCString())
                     */
 
-                    store.dispatch('user', {token: res.data.token, is_authenticated: true, data: res.data.userData})
+                    store.setUser({token: res.data.token, is_authenticated: true, data: res.data.userData})
                     router.push({ name: 'UserDashboard' })
                 } else {
                     console.log(res.data.message)

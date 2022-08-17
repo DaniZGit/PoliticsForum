@@ -11,12 +11,12 @@
 
             <ul class="navbar-nav d-flex">
                 <li class="nav-item">
-                    <router-link to="/user/dashboard" class="nav-link text-white" v-if="store.getters.user.is_authenticated">Profile</router-link>
+                    <router-link to="/user/dashboard" class="nav-link text-white" v-if="userStore.isLoggedIn()">Profile</router-link>
                 </li>
-                <li class="nav-item" v-if="!store.getters.user.is_authenticated">
+                <li class="nav-item" v-if="!userStore.isLoggedIn()">
                     <router-link to="/user/login" class="nav-link text-white">Login</router-link>
                 </li>
-                <li v-if="!store.getters.user.is_authenticated">
+                <li v-if="!userStore.isLoggedIn()">
                     <router-link to="/user/register" class="nav-link">Register</router-link>
                 </li>
             </ul>
@@ -44,20 +44,43 @@
 
 
 <script setup>
-    import {onMounted, ref } from 'vue'
-    import { useStore } from 'vuex'
+    import {computed, onBeforeUnmount, onMounted, onUnmounted, ref, toRef, toRefs } from 'vue'
+    import { useUserStore } from '../../stores/userStore'
+    import { usePostsStore } from '../../stores//postsStore'
+    // import { storeToRefs } from 'pinia'
 
-    const store = useStore()
+    const userStore = useUserStore()
+    const postsStore = usePostsStore()
     
     /*                 */
     /* fetch users */
     /*                 */
-    let users = ref([]);
+    let users = computed(() => userStore.users)
+    let usersFetchTimer = null
     onMounted(async () => {
-        console.log('users')
-        let res = await fetch('/api/users')
-        let data = await res.json()
-        users.value = data
-        console.log(users.value)
+        // fetch users at the start
+        userStore.fetchUsers()
+
+        // fetch users every 10 seconds (in background)
+        usersFetchTimer = setInterval(() => {
+            userStore.fetchUsers()
+        }, 10000)
+    })
+
+    // let postStates = storeToRefs(postsStore)
+    let posts = computed(() => postsStore.posts)
+    let postsFetchTimer = null
+    onMounted(() => {
+        // fetch posts at the start
+        postsStore.fetchPosts()
+
+        // fetch posts every 10 seconds (in background)
+        postsFetchTimer = setInterval(() => {
+            postsStore.fetchPosts()
+        }, 10000)
+    })
+    onBeforeUnmount(() => {
+        clearInterval(postsFetchTimer)
+        clearInterval(usersFetchTimer)
     })
 </script>

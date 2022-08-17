@@ -74,12 +74,12 @@
     import { useRouter } from 'vue-router'
     import VueCookie from 'vue-cookie'
     import axios from 'axios'
-    import { useStore } from 'vuex'
+    import { useUserStore } from '../../../stores/userStore'
     
     // variables
     const router = useRouter()
     const cookie = VueCookie
-    const store = useStore()
+    const store = useUserStore()
 
     let loading = ref(false)
     let defaultProfilePicture = 'https://e7.pngegg.com/pngimages/219/352/png-clipart-nadona-user-profile-computer-icons-avatar-account-blue-heroes-thumbnail.png'
@@ -103,10 +103,10 @@
     
 
     onMounted(() => {
-        if (store.getters.user.is_authenticated)
+        if (store.isLoggedIn())
             router.push({ name: 'UserDashboard' })
 
-        console.log(store.getters.user)
+        console.log(store.user)
     })
     /*                 */
     /* form validation */
@@ -165,8 +165,8 @@
                 */
 
                 console.log(res.data)
-                store.dispatch('user', {token: res.data.token, is_authenticated: true, data: res.data.userData})
-                console.log(store.getters.user)
+                store.setUser({token: res.data.token, is_authenticated: true, data: res.data.userData})
+                //console.log(store.user)
                 router.push({ name: 'UserDashboard' })
             } else {
                 console.log(res.data.message)
