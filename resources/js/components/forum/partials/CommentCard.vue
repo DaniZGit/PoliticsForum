@@ -37,35 +37,10 @@
     </div>
 
 </template>
-<!--
-<script>
-
-import { onMounted } from '@vue/runtime-core'
-    export default {
-        data() {
-            return {
-                'user': [],
-            }
-        },
-
-        props: [
-            'comment',
-        ],
-
-        async created() {
-            console.log("comment")
-            console.log(this.comment)
-            let result = await fetch('/api/users/' + this.comment.user_id)
-            this.user = await result.json()
-            console.log(this.user)
-        }
-    }
-</script>
--->
 
 <script setup>
-import { ref } from "@vue/reactivity"
-import { onMounted } from "@vue/runtime-core"
+    import { ref } from "@vue/reactivity"
+    import { onMounted } from "@vue/runtime-core"
 
     let user = ref([])
     let props = defineProps(['comment'])

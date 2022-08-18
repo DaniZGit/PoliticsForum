@@ -59,42 +59,7 @@
     </div>
     
 </template>
-<!--
-<script>
-    import CommentCard from '../partials/CommentCard.vue'
-    import ReplyCard from '../partials/ReplyCard.vue'
 
-    export default {
-        components: {
-            CommentCard,
-            ReplyCard,
-        },
-
-        data() {
-            return {
-                'postData': null,
-            }
-        },
-
-        props: [
-            'post',
-        ],
-        
-        async created() {
-            if(!this.post) {
-                let result = await fetch('/api/posts/' + this.$route.params.post)
-                this.postData = await result.json()
-                
-                this.$emit("refreshRightSidebar", this.postData)
-            } else {
-                this.postData = this.post
-            }
-            
-        }
-        
-    }
-</script>
--->
 <script setup>
     import { ref } from '@vue/reactivity'
     import { onMounted } from '@vue/runtime-core'

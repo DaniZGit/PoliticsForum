@@ -56,63 +56,7 @@
     </div>
     
 </template>
-<!--
-<script>
-    export default {
-        props: [
-            'categoryNames',
-            'tags',
-        ],
 
-        data() {
-            return {
-                'activeTags': [],
-            }
-        },
-
-        created() {
-            /*
-            categories.forEach(category => {
-                let result = await fetch("/api/categories/" + category.name + "/count")
-                let c = await result.json()
-                this.postCount = c.count
-            });
-            let result = await fetch("/api/categories/" + this.$route.params.category + "/count")
-            let c = await result.json()
-            this.postCount = c.count
-            */
-        },
-
-        methods: {
-            toggleTag(tag) {
-                tag.active = !tag.active
-                /*
-                console.log(this.tags)
-                let queriedTags = ""
-                this.tags.forEach(t => {
-                    console.log(t)
-                    if(t.active) {
-                        queriedTags = queriedTags.concat(t.name + ',')
-                    }
-                });
-                queriedTags = queriedTags.substring(0, queriedTags.length - 1)
-                this.$router.replace({ query: { 'tags': queriedTags }})
-                */
-
-                this.$emit('tagsToggled', this.tags.filter((tag) => tag.active))
-            },
-
-            resetToggles() {
-                this.tags.forEach(tag => {
-                    tag.active = false
-                });
-
-                this.$emit('tagsToggled', this.tags.filter((tag) => tag.active))
-            }
-        }
-    }
-</script>
--->
 <script setup>
     import { ref } from "@vue/reactivity"
 

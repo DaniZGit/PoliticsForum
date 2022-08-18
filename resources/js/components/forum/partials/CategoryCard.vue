@@ -47,69 +47,6 @@
 
 </template>
 
-<!--
-<script>
-    import PostCard from '../partials/PostCard.vue'
-    import Pagination from '../../../../..//node_modules/vuejs-paginate-next'
-
-    export default {
-        components: {
-            PostCard,
-            Pagination,
-        },
-
-        props: [
-            'category',
-            'activeTags',
-        ],
-
-        data() {
-            return {
-                'currPage': 1,
-                'postsPerPage': 5,
-                'count': 0,
-            }
-        },
-
-        computed: {
-            getPostsFrom() {
-                return (this.currPage-1) * this.postsPerPage
-            },
-
-            getPostsTo(categoryName) {
-                return this.currPage * this.postsPerPage
-            },
-
-        },
-
-        created(){
-        },
-
-        methods: {
-            /*
-            refreshRightSidebar(post) {
-                this.$emit('refreshRightSidebar', post)
-            },*/
-
-            getPageCount() {
-                return Math.ceil( this.category.posts.length / this.postsPerPage )
-            },
-
-            setCurrentPage(page) {
-                this.currPage = page
-            },
-
-        },
-
-        watch: {
-            activeTags(newValue, oldValue) {
-                let result = fetch('/api/categories/' + this.category.name + '/posts/search')
-                console.log(result)
-            }
-        }
-    }
-</script>
--->
 <script setup>
     import PostCard from '../partials/PostCard.vue'
     import Pagination from '../../../../..//node_modules/vuejs-paginate-next'

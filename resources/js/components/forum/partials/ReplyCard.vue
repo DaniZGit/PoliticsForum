@@ -45,31 +45,7 @@
     </div>
 
 </template>
-<!--
-<script>
-import { ref } from '@vue/reactivity'
-import { onMounted } from '@vue/runtime-core'
-    export default {
-        data() {
-            return {
-                'user': [],
-            }
-        },
 
-        props: [
-            'reply',
-        ],
-
-        async created() {
-            console.log("reply")
-            console.log(this.comment)
-            let result = await fetch('/api/users/' + this.reply.user_id)
-            this.user = await result.json()
-            console.log(this.user)
-        }
-    }
-</script>
--->
 <script setup>
     import { ref } from '@vue/reactivity'
     import { onMounted } from '@vue/runtime-core'

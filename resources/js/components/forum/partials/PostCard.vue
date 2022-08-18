@@ -44,17 +44,6 @@
         </div>
     </div>
 </template>
-<!--
-<script>
-    export default {
-        props: [
-            'post',
-            'category',
-            'tags'
-        ],
-    }
-</script>
--->
 
 <script setup>
     const props = defineProps([
