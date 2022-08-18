@@ -49,4 +49,5 @@
         console.log("click2")
         emits('refreshRightSidebar', post)
     }
+    
 </script>

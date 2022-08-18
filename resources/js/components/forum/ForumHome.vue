@@ -195,12 +195,12 @@
     }
 
     // emits
-    function refreshRightSidebar (emittedPost) {
+    const refreshRightSidebar = ((emittedPost) => {
         post.value = emittedPost
-    }
+    })
 
-    function tagsToggled(emmittedActiveTags) {
+    const tagsToggled = ((emmittedActiveTags) => {
         console.log(activeTags.value)
         activeTags.value = emmittedActiveTags
-    }
+    })
 </script>

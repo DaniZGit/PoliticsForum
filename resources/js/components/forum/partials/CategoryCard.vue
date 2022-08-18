@@ -47,6 +47,7 @@
 
 </template>
 
+<!--
 <script>
     import PostCard from '../partials/PostCard.vue'
     import Pagination from '../../../../..//node_modules/vuejs-paginate-next'
@@ -108,11 +109,43 @@
         }
     }
 </script>
-
+-->
 <script setup>
-    const emits = defineEmits(['refreshRightSidebar'])
+    import PostCard from '../partials/PostCard.vue'
+    import Pagination from '../../../../..//node_modules/vuejs-paginate-next'
+    import { ref } from '@vue/reactivity'
+    import { computed, watch } from '@vue/runtime-core'
+
+    const props = defineProps([
+        'category',
+        'activeTags'
+    ])
+    const emit = defineEmits(['refreshRightSidebar'])
+
+    let currPage = ref(1)
+    let postsPerPage = ref(5)
+    let count = ref(5)
+
+    const getPostsFrom = computed(() => {
+        return (currPage.value-1) * postsPerPage.value
+    })
+    const getPostsTo = computed(() => {
+        return currPage.value * postsPerPage.value
+    })
 
     function refreshRightSidebar(post) {
-        emits('refreshRightSidebar', post)
+        emit('refreshRightSidebar', post)
     }
+    const getPageCount = (() => {
+        return Math.ceil( props.category.posts.length / postsPerPage.value )
+    })
+
+    const setCurrentPage = ((page) => {
+        currPage.value = page
+    })
+
+    watch(props.activeTags, (newActiveTags, oldActiveTags) => {
+        let result = fetch('/api/categories/' + props.category.name + '/posts/search')
+        console.log(result)
+    })
 </script>

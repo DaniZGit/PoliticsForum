@@ -21,7 +21,7 @@
                             <a href="#" class="text-decoration-none d-inline"><i class="bi bi-arrow-return-right"></i> Odgovor od: &#64;{{ user.name }}</a>
                         </div>
                         <div class="h6">
-                            {{ reply.description }}
+                            {{ props.reply.description }}
                         </div>
                     </div>
                     
@@ -32,11 +32,11 @@
                         </a>
                         <a href="#like" class="text-decoration-none text-dark h6">
                             <i class="bi bi-hand-thumbs-up"> </i>
-                            Like ({{ reply.likes }})
+                            Like ({{ props.reply.likes }})
                         </a>
                         <a href="#dislike" class="text-decoration-none text-dark h6">
                             <i class="bi bi-hand-thumbs-down"> </i>
-                            Dislike ({{ reply.dislikes }})
+                            Dislike ({{ props.reply.dislikes }})
                         </a>
                     </div>
                 </div>
@@ -45,8 +45,10 @@
     </div>
 
 </template>
-
+<!--
 <script>
+import { ref } from '@vue/reactivity'
+import { onMounted } from '@vue/runtime-core'
     export default {
         data() {
             return {
@@ -66,4 +68,17 @@
             console.log(this.user)
         }
     }
+</script>
+-->
+<script setup>
+    import { ref } from '@vue/reactivity'
+    import { onMounted } from '@vue/runtime-core'
+
+    let user = ref([])
+    let props = defineProps(['reply'])
+
+    onMounted(async () => {
+        let result = await fetch('/api/users/' + props.reply.user_id)
+        user.value = await result.json()
+    })
 </script>

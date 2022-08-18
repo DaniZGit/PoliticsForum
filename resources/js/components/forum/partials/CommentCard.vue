@@ -14,7 +14,7 @@
             <!-- main comment content -->
             <div class="d-flex flex-column gap-2">
                 <div class="h5">
-                    {{ comment.description }}
+                    {{ props.comment.description }}
                 </div>
             </div>
         
@@ -25,11 +25,11 @@
                 </a>
                 <a href="#like" class="text-decoration-none text-dark">
                     <i class="bi bi-hand-thumbs-up"> </i>
-                    Like ({{ comment.likes }})
+                    Like ({{ props.comment.likes }})
                 </a>
                 <a href="#dislike" class="text-decoration-none text-dark">
                     <i class="bi bi-hand-thumbs-down"> </i>
-                    Dislike ({{ comment.dislikes }})
+                    Dislike ({{ props.comment.dislikes }})
                 </a>
             </div>
             
@@ -37,8 +37,10 @@
     </div>
 
 </template>
-
+<!--
 <script>
+
+import { onMounted } from '@vue/runtime-core'
     export default {
         data() {
             return {
@@ -58,4 +60,18 @@
             console.log(this.user)
         }
     }
+</script>
+-->
+
+<script setup>
+import { ref } from "@vue/reactivity"
+import { onMounted } from "@vue/runtime-core"
+
+    let user = ref([])
+    let props = defineProps(['comment'])
+
+    onMounted(async () => {
+        let result = await fetch('/api/users/' + props.comment.user_id)
+        user.value = await result.json()
+    })
 </script>

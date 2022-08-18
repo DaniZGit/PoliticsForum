@@ -59,7 +59,7 @@
     </div>
     
 </template>
-
+<!--
 <script>
     import CommentCard from '../partials/CommentCard.vue'
     import ReplyCard from '../partials/ReplyCard.vue'
@@ -93,4 +93,29 @@
         }
         
     }
+</script>
+-->
+<script setup>
+    import { ref } from '@vue/reactivity'
+    import { onMounted } from '@vue/runtime-core'
+    import { useRoute } from 'vue-router'
+    import CommentCard from '../partials/CommentCard.vue'
+    import ReplyCard from '../partials/ReplyCard.vue'
+
+    let postData = ref(null)
+    let props = defineProps(['post'])
+    const route = useRoute()
+
+    const emit = defineEmits(['refreshRightSidebar'])
+
+    onMounted(async () => {
+        if(!props.post) {
+            let result = await fetch('/api/posts/' + route.params.post)
+            postData.value = await result.json()
+            
+            emit("refreshRightSidebar", postData.value)
+        } else {
+            postData.value = props.post
+        }
+    })
 </script>

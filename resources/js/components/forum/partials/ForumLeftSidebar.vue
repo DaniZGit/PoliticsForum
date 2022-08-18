@@ -3,7 +3,7 @@
         <div>
             <h4 class="mb-2">Categories</h4>
             <div id="list-example" class="list-group">
-                <router-link :to="'/forum/' + category.name" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center rounded-pill border h8" v-for="category in categoryNames" :key="category.name">
+                <router-link :to="'/forum/' + category.name" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center rounded-pill border h8" v-for="category in props.categoryNames" :key="category.name">
                     {{ category.name }} <span class="badge bg-primary rounded-pill">{{ category.postsCount }}</span>
                 </router-link>
             </div>
@@ -40,7 +40,7 @@
             </div>
             <div class="d-flex flex-wrap gap-2 justify-content-start">
                 <a 
-                    v-for="tag in tags" :key="tag.id"
+                    v-for="tag in props.tags" :key="tag.id"
                     href="#" 
                     class="h6 m-0 p-2 border border-secondary border-1 rounded-pill bg-white text-dark text-decoration-none"
                     :class="{'active-tag': tag.active}"
@@ -56,7 +56,7 @@
     </div>
     
 </template>
-
+<!--
 <script>
     export default {
         props: [
@@ -112,6 +112,45 @@
         }
     }
 </script>
+-->
+<script setup>
+    import { ref } from "@vue/reactivity"
+
+    const props = defineProps([
+        'categoryNames',
+        'tags'
+    ])
+    const emit = defineEmits(['tagsToggled'])
+
+    let activeTags = ref([])
+
+    const toggleTag = ((tag) => {
+        tag.active = !tag.active
+        /*
+        console.log(this.tags)
+        let queriedTags = ""
+        this.tags.forEach(t => {
+            console.log(t)
+            if(t.active) {
+                queriedTags = queriedTags.concat(t.name + ',')
+            }
+        });
+        queriedTags = queriedTags.substring(0, queriedTags.length - 1)
+        this.$router.replace({ query: { 'tags': queriedTags }})
+        */
+
+        emit('tagsToggled', props.tags.filter((tag) => tag.active))
+    })
+
+    const resetToggles = (() => {
+        props.tags.forEach(tag => {
+            tag.active = false
+        });
+
+        emit('tagsToggled', props.tags.filter((tag) => tag.active))
+    })
+</script>
+
 
 <style scoped>
     .active-tag {

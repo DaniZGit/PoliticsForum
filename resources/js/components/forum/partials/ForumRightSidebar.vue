@@ -77,7 +77,6 @@
 <script setup>
 
     const props = defineProps(['post'])
-
 </script>
 
 
