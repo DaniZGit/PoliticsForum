@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class TagController extends Controller
 {
 
-    public function getTags() {
-        $tags = Tag::all();
+    public function getTags(Request $request) {
+        $tags = Tag::orderBy('name')->get();
         foreach($tags as $tag) {
             $tag['tagCount'] = $tag->posts()->count();
             $tag['active'] = false;

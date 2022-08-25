@@ -63,8 +63,8 @@
             Author
         </h3>
         <div class="d-flex flex-column align-items-center">
-            <img :src="props.post.user[0].profile_picture" alt="" class="img-fluid w-25 rounded-circle"><!--https://randomuser.me/api/portraits/women/69.jpg-->
-            <a href="#" class="text-decoration-none text-dark fw-bold h4 m-0 mt-1">{{ props.post.user[0].name }}</a>
+            <img :src="props.post.user.profile_picture" alt="" class="img-fluid w-25 rounded-circle"><!--https://randomuser.me/api/portraits/women/69.jpg-->
+            <a href="#" class="text-decoration-none text-dark fw-bold h4 m-0 mt-1">{{ props.post.user.name }}</a>
             <div class="d-flex flex-wrap gap-2 justify-content-center p-2">
                 <a href="#" v-for="tag in props.post.tags.sort((a, b) => a.name > b.name ? 1 : -1)" :key="tag.id" class="h6 bg-dark align-self-center m-0 p-2 rounded text-white text-decoration-none">{{ tag.name }}</a>
             </div>

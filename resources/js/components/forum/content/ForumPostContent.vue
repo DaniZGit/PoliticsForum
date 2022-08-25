@@ -23,11 +23,11 @@
             <div class="container-fluid p-0 d-flex flex-row">
                 <div class="flex-shrink-0 p-4 border-2 border border-end-0 border-primary rounded-start text-center align-self-baseline">
                     <img 
-                        :src="postData.user[0].profile_picture" 
+                        :src="postData.user.profile_picture" 
                         alt="..." 
                         class="rounded-circle img-fluid justify-content-center mb-1 border"
                     >
-                    <h6 class="m-0 text-dark fw-bold"><a href="#profile" class="text-decoration-none text-dark">{{ postData.user[0].name }}</a></h6>
+                    <h6 class="m-0 text-dark fw-bold"><a href="#profile" class="text-decoration-none text-dark">{{ postData.user.name }}</a></h6>
                 </div>
 
                 <div class=" border-2 border border-primary rounded-end">

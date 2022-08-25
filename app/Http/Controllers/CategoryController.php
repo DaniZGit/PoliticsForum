@@ -9,10 +9,42 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-
-    public function getCategories()
+    public function getCategories(Request $request)
     {
         $categories = Category::all();
+
+        if ($request->query('includes') !== null)
+        {
+            $includes = $request->query('includes');
+            
+            if (in_array('posts', $includes))
+            {
+                foreach ($categories as $category) {
+                    $category['posts'] = $category->posts()->with('user')->orderBy('updated_at', 'DESC')->take(25)->get();
+
+                    if (in_array('tags', $includes))
+                    {
+                        $category['posts']->load('tags');
+
+                        if (in_array('comments', $includes))
+                        {
+                            if (in_array('replies', $includes))
+                            {
+                                $category['posts']->load(['comments' => function ($query) {
+                                    $query->with('replies');
+                                }]);
+                            } 
+                            else
+                            {
+                                $category['posts']->load('comments');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return $categories;
     }
 
     public function getCategoriesPosts () 

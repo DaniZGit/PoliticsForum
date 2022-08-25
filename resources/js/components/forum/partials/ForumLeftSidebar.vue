@@ -4,7 +4,7 @@
             <h4 class="mb-2">Categories</h4>
             <div id="list-example" class="list-group">
                 <router-link :to="'/forum/' + category.name" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center rounded-pill border h8" v-for="category in props.categoryNames" :key="category.name">
-                    {{ category.name }} <span class="badge bg-primary rounded-pill">{{ category.postsCount }}</span>
+                    {{ category.name }} <span class="badge bg-primary rounded-pill">{{ category.posts.length }}</span>
                 </router-link>
             </div>
         </div>

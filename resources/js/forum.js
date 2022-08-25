@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedState from 'pinia-plugin-persistedstate'
+import axios from './axios.js'
 
 import ForumHome from './components/forum/ForumHome.vue'
 import ForumHomeContent from './components/forum/content/ForumHomeContent.vue'

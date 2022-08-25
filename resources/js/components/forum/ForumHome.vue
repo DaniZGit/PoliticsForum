@@ -69,6 +69,7 @@
     import { useUserStore } from '../../stores/userStore'
     import { ref } from '@vue/reactivity'
     import { onMounted } from '@vue/runtime-core'
+    import axios from 'axios'
 
     let post = ref(null)
     let categories = ref(null)
@@ -83,7 +84,7 @@
         fetchCategoryNames()
 
         fetchTags()
-
+        
         console.log("authenticated user")
         console.log(userStore)
         console.log(userStore.user)
@@ -91,26 +92,39 @@
 
     // fetch functions
     async function fetchCategories() {
-        let result = await fetch("/api/categories/posts/details")
-        categories.value = await result.json()
-        console.log(categories.value)
+        try {
+            const res = await axios.get('categories', {
+                params: { 
+                    includes: ['posts', 'tags', 'comments', 'replies']
+                }
+            })
+            console.log('new categories')
+            console.log(res.data)
+            categories.value = res.data
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async function fetchCategoryNames() {
-        let result = await fetch("/api/categories/count")
-        categoryNames.value = await result.json()
+       try {
+            const res = await axios.get('categories', {
+                params: { 
+                    includes: ['posts']
+                }
+            })
+            console.log('category namesss')
+            console.log(res.data)
+            categoryNames.value = res.data
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async function fetchTags() {
         let result = await fetch("/api/tags/")
         tags.value = await result.json()
-        tags.value.sort((a,b) => {
-        if(a.name > b.name) {
-                return 1
-            } else {
-                return -1
-            }
-        })
+
         console.log(tags)
     }
 

@@ -4,11 +4,11 @@
             <div class="col-1 text-start text-center align-self-baseline">
                 <a :href="'/forum/' + props.category + '/' + props.post.id" class="text-decoration-none">
                     <img 
-                        :src="props.post.user[0].profile_picture"
+                        :src="props.post.user.profile_picture"
                         alt="..." 
                         class="rounded-circle img-fluid w-75 justify-content-center mb-1 border"
                     >
-                    <h6 class="m-0 text-dark fw-bold">{{ props.post.user[0].name }}</h6>
+                    <h6 class="m-0 text-dark fw-bold">{{ props.post.user.name }}</h6>
                 </a>
             </div>
             <div class="col-9 align-self-center align-self-stretch">
@@ -46,10 +46,17 @@
 </template>
 
 <script setup>
+import { onMounted } from "@vue/runtime-core"
+
     const props = defineProps([
         'post',
         'category',
         'tags'
     ])
+
+    onMounted(() => {
+        console.log('on post')
+        console.log(props.post)
+    })
 
 </script>

@@ -18,8 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// testing stuff
+// code redoing --
 Route::get('/posts/all', [PostController::class, 'getPosts']);
+Route::get('/categories', [CategoryController::class, 'getCategories']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
