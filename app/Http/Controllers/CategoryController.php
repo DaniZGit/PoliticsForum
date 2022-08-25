@@ -11,40 +11,71 @@ class CategoryController extends Controller
 {
     public function getCategories(Request $request)
     {
-        $categories = Category::all();
-
         if ($request->query('includes') !== null)
         {
-            $includes = $request->query('includes');
+            // option 1
             
-            if (in_array('posts', $includes))
-            {
-                foreach ($categories as $category) {
-                    $category['posts'] = $category->posts()->with('user')->orderBy('updated_at', 'DESC')->take(25)->get();
+            $includes = array_flip(request()->get('includes', []));
+            $relation_map = [ 
+                'posts' => 'posts.user', 
+                'tags' => 'posts.tags', 
+                'comments' => 'posts.comments', 
+                'replies' => 'posts.comments.replies' 
+            ];
 
-                    if (in_array('tags', $includes))
-                    {
-                        $category['posts']->load('tags');
+            $joins = collect($relation_map)->intersectByKeys($includes)->values()->toArray();
 
-                        if (in_array('comments', $includes))
-                        {
-                            if (in_array('replies', $includes))
-                            {
-                                $category['posts']->load(['comments' => function ($query) {
-                                    $query->with('replies');
-                                }]);
-                            } 
-                            else
-                            {
-                                $category['posts']->load('comments');
-                            }
-                        }
-                    }
-                }
-            }
+            return Category::with($joins)->get();
+            
+            // option 2
+            /*
+            $includes = $request->query('includes');
+
+            $query->when(in_array('posts', $includes), function($q) {
+                $q->with([
+                    'posts' => function($q) {
+                            $q->orderBy('updated_at', 'DESC')->limit(10); 
+                        },
+                    'posts.user'
+                ]);
+            });
+            $query->when(in_array('tags', $includes), function($q) {
+                $q->with('posts.tags');
+            });
+            $query->when(in_array('comments', $includes), function($q) {
+                $q->with('posts.comments');
+            });
+            $query->when(in_array('replies', $includes), function($q) {
+                $q->with('posts.comments.replies');
+            });
+
+            return $query->get();
+            */
         }
-        
-        return $categories;
+
+        return Category::all();
+    }
+    
+    public function getCategory($categoryName, Request $request)
+    {
+        if ($request->query('includes') !== null)
+        {
+            // option 1
+            
+            $includes = array_flip(request()->get('includes', []));
+            $relation_map = [ 
+                'posts' => 'posts.user', 
+                'tags' => 'posts.tags', 
+                'comments' => 'posts.comments', 
+                'replies' => 'posts.comments.replies' 
+            ];
+
+            $joins = collect($relation_map)->intersectByKeys($includes)->values()->toArray();
+
+            return Category::where('name', '=', $categoryName)->with($joins)->first();
+        }
+
+        return Category::where('name', $categoryName)->first();
     }
 
     public function getCategoriesPosts () 

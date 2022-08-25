@@ -55,8 +55,6 @@ import { onMounted } from "@vue/runtime-core"
     ])
 
     onMounted(() => {
-        console.log('on post')
-        console.log(props.post)
     })
 
 </script>

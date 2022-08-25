@@ -64,6 +64,7 @@
     import { ref } from '@vue/reactivity'
     import { computed, onMounted, watch } from '@vue/runtime-core'
     import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
+    import axios from 'axios'
 
     let category = ref(null)
     let currPage = ref(1)
@@ -85,15 +86,106 @@
     onMounted(() => {
         // če je stran refreshed oz. ni prišla iz /forum/
         if(!props.categories){
-            fetchPosts()
+            console.log('lej ka ni pršlja')
+            fetchCategory()
         } else {
-            setCategory()
+            setupCategory()
         }
-
-        fetchCategoryCount()
-        //this.refreshPage()
     })
 
+    // computed methods
+
+    // methods
+    const fetchCategory = (async () => {
+        console.log('parma ios ' + route.params.category)
+        try {
+            const res = await axios.get(`categories/${route.params.category}`, {
+                params: { 
+                    includes: ['posts', 'tags', 'comments', 'replies']
+                }
+            })
+            category.value = res.data
+        } catch (error) {
+            console.log(error)
+        }
+    })
+
+    const setupCategory = (() => {
+        let categoryName = route.params.category
+        // find current category data from propped 'categories'
+        category.value = props.categories.find((category) => category.name === categoryName)
+    })
+
+    const refreshRightSidebar = ((post) => {
+        emit('refreshRightSidebar', post)
+    })
+
+    const setCurrentPage = ((page) => {
+        currPage.value = page
+        //this.fetchCategory()
+        
+        //if(!this.tagsChanged){
+            // refreshPosts()
+            tagsChanged.value = false
+        //}
+
+        window.scrollTo(0,0);
+
+    })
+
+    const getPageCount = (() => {
+        return Math.ceil( postCount.value / postsPerPage.value )
+    })
+
+    // watchers
+    // nisem sure če to dela, neki vem da nrdi....
+    watch(() => route.path, (to, from) => {
+        if(route.params.category != category.value.name){
+            if(route.name === "ForumCategory") {
+                // disable tags if moved from category to another category
+                props.activeTags.forEach(t => {
+                    t.active = false
+                });
+            }
+
+            setupCategory()
+        }
+    })
+    
+
+    watch(() => props.activeTags, (newActiveTags, oldActiveTags) => {
+        tagsChanged.value = true
+        refreshPage()
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
     // computed methods
     const getPageParams = computed(() => {
         let cmvTags = ""
@@ -113,55 +205,13 @@
         return queriedTags
     })
 
-    // methods
-    const fetchPosts = (async () => {
-        //let url = `/api/categories/${this.$route.params.category}` + this.getPageParams()
-        let url = `/api/categories/${route.params.category}?page=${currPage.value}&size=${postsPerPage.value}`
-        console.log("fetchPosts")
-        let result = await fetch(url)
-        category.value = await result.json()
-    })
-
     const fetchCategoryCount = (async () => {
+        // tega nerabm sm pretty sure, sam preverm length od posts ki so bli fetched
         let result = await fetch("/api/categories/" + route.params.category + "/count")
         console.log("fetchCategoryCount")
         let c = await result.json()
         postCount.value = c.count
         pageCount.value = getPageCount()
-    })
-
-    const setCategory = (() => {
-        let categoryName = route.params.category
-
-        category.value = (props.categories.filter((cat, ind) => cat.name === categoryName))
-        if(category.value.length > 0) {
-            category.value = category.value[0]
-        }
-        //this.fetchCategoryCount()
-        refreshPage()
-        //this.currPage = 1
-        console.log("do we set")
-    })
-
-    const refreshRightSidebar = ((post) => {
-        emit('refreshRightSidebar', post)
-    })
-
-    const setCurrentPage = ((page) => {
-        currPage.value = page
-        //this.fetchPosts()
-        
-        //if(!this.tagsChanged){
-            refreshPosts()
-            tagsChanged.value = false
-        //}
-
-        window.scrollTo(0,0);
-
-    })
-
-    const getPageCount = (() => {
-        return Math.ceil( postCount.value / postsPerPage.value )
     })
 
     const refreshPosts = (async () =>  {
@@ -170,7 +220,9 @@
         let result = await fetch(url)
         category.value = await result.json()
     })
+    
 
+    
     const refreshPage = (async () => {
         // refresh posts count
         let result = await fetch("/api/categories/" + route.params.category + "/count" + getPageParams.value)
@@ -184,26 +236,5 @@
         // refresh shows posts
         refreshPosts()
     })
-
-    // watchers
-    // nisem sure če to dela, neki vem da nrdi....
-    watch(() => route.path, (to, from) => {
-        if(route.params.category != category.value.name){
-            if(route.name === "ForumCategory") {
-                // disable tags if moved from category to another category
-                props.activeTags.forEach(t => {
-                    t.active = false
-                });
-            }
-
-            setCategory()
-        }
-    })
-    
-
-    watch(() => props.activeTags, (newActiveTags, oldActiveTags) => {
-        tagsChanged.value = true
-        refreshPage()
-    })
-
+    */
 </script>

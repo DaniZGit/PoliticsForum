@@ -19,12 +19,29 @@ use Illuminate\Support\Facades\Route;
 */
 
 // code redoing --
+
+/* posts */
 Route::get('/posts/all', [PostController::class, 'getPosts']);
+/* categories */
 Route::get('/categories', [CategoryController::class, 'getCategories']);
+Route::get('/categories/{id}', [CategoryController::class, 'getCategory']);
+/* tags */
+Route::prefix('/tags')->group(function() {
+    Route::get('/', [TagController::class, 'getTags']);
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/users', [UserController::class, 'getUsers']);
+Route::post('/users/login', [UserController::class, 'login']);
+Route::post('/users/register', [UserController::class, 'register']);
+Route::post('/users/logout', [UserController::class, 'logout'])
+    ->middleware('auth:sanctum');
+Route::get('/users/{id}', [UserController::class, 'getUser']);
+
+// old code
 
 Route::prefix('/categories')->group( function() {
     Route::get('/', [CategoryController::class, 'getCategories']);
@@ -39,19 +56,8 @@ Route::prefix('/categories')->group( function() {
     Route::get('/{category}/count', [CategoryController::class, 'getCategoryPostsCount']);
 });
 
-Route::prefix('/tags')->group(function() {
-    Route::get('/', [TagController::class, 'getTags']);
-});
-
 Route::get('/posts/{id}', [PostController::class, 'getPost']);
 
 Route::post('/tags/store', [TagController::class, 'store']);
 
 Route::get('/posts', [PostController::class, 'index']);
-
-Route::get('/users', [UserController::class, 'getUsers']);
-Route::post('/users/login', [UserController::class, 'login']);
-Route::post('/users/register', [UserController::class, 'register']);
-Route::post('/users/logout', [UserController::class, 'logout'])
-    ->middleware('auth:sanctum');
-Route::get('/users/{id}', [UserController::class, 'getUser']);

@@ -8,10 +8,12 @@ use App\Models\Comment;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
 
 class Post extends Model
 {
     use HasFactory;
+    use HasEagerLimit;
     protected $guarded = [];
 
     public function tags(){

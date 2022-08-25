@@ -86,7 +86,6 @@
         fetchTags()
         
         console.log("authenticated user")
-        console.log(userStore)
         console.log(userStore.user)
     })
 
@@ -98,8 +97,6 @@
                     includes: ['posts', 'tags', 'comments', 'replies']
                 }
             })
-            console.log('new categories')
-            console.log(res.data)
             categories.value = res.data
         } catch (error) {
             console.log(error)
@@ -113,8 +110,6 @@
                     includes: ['posts']
                 }
             })
-            console.log('category namesss')
-            console.log(res.data)
             categoryNames.value = res.data
         } catch (error) {
             console.log(error)
@@ -124,8 +119,6 @@
     async function fetchTags() {
         let result = await fetch("/api/tags/")
         tags.value = await result.json()
-
-        console.log(tags)
     }
 
     // emits
