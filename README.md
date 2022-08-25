@@ -75,3 +75,6 @@ Start the server
     - filter by likes, latest, etc.
     - user/... pages are fetching data using axios(), but forum/... pages are using fetch() -- axios is easier to work with, so redoing the fetches will be needed on forum/... pages !
     - user/... pages are done with composition api, but forum/... pages are using old options api, sooo /forum... pages will be needing a redoo
+    
+# LIBRARIES
+    - composer require staudenmeir/eloquent-eager-limit:"^^^^1.0" (https://github.com/staudenmeir/eloquent-eager-limit)
