@@ -117,8 +117,12 @@
     }
 
     async function fetchTags() {
-        let result = await fetch("/api/tags/")
-        tags.value = await result.json()
+        try {
+            const res = await axios.get('tags')
+            tags.value = res.data
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     // emits

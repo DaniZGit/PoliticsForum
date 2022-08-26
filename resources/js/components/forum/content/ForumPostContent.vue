@@ -66,6 +66,7 @@
     import { useRoute } from 'vue-router'
     import CommentCard from '../partials/CommentCard.vue'
     import ReplyCard from '../partials/ReplyCard.vue'
+    import axios from 'axios'
 
     let postData = ref(null)
     let props = defineProps(['post'])
@@ -75,8 +76,16 @@
 
     onMounted(async () => {
         if(!props.post) {
-            let result = await fetch('/api/posts/' + route.params.post)
-            postData.value = await result.json()
+            try {
+                const res = await axios.get(`posts/${route.params.post}`, {
+                    params: { 
+                        includes: ['tags', 'comments', 'replies']
+                    }
+                })
+                postData.value = res.data
+            } catch (error) {
+                console.log(error)
+            }
             
             emit("refreshRightSidebar", postData.value)
         } else {

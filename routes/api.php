@@ -21,15 +21,24 @@ use Illuminate\Support\Facades\Route;
 // code redoing --
 
 /* posts */
-Route::get('/posts/all', [PostController::class, 'getPosts']);
+Route::prefix('/posts')->group(function() {
+    Route::get('/', [PostController::class, 'getPosts']);
+    Route::get('/{id}', [PostController::class, 'getPost']);
+});
+
 /* categories */
-Route::get('/categories', [CategoryController::class, 'getCategories']);
-Route::get('/categories/{id}', [CategoryController::class, 'getCategory']);
+Route::prefix('/categories')->group(function() {
+    Route::get('/', [CategoryController::class, 'getCategories']);
+    Route::get('/{id}', [CategoryController::class, 'getCategory']);
+});
+
 /* tags */
 Route::prefix('/tags')->group(function() {
     Route::get('/', [TagController::class, 'getTags']);
+    Route::post('/store', [TagController::class, 'store']);
 });
 
+/* user */
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -40,24 +49,3 @@ Route::post('/users/register', [UserController::class, 'register']);
 Route::post('/users/logout', [UserController::class, 'logout'])
     ->middleware('auth:sanctum');
 Route::get('/users/{id}', [UserController::class, 'getUser']);
-
-// old code
-
-Route::prefix('/categories')->group( function() {
-    Route::get('/', [CategoryController::class, 'getCategories']);
-    Route::get('/posts', [CategoryController::class, 'getCategoriesPosts']);
-    Route::get('/posts/details', [CategoryController::class, 'getCategoriesPostsDetails']);
-    Route::post('/store', [CategoryController::class, 'store']);
-    Route::get('/count', [CategoryController::class, 'getCategoriesCount']);
-    Route::get('/{category}/posts/details', [CategoryController::class, 'getCategoryPostsDetails']);
-    Route::get('/{category}/posts/search', [CategoryController::class, 'getCategoryFilteredPosts']);
-    //Route::get('/{category}', [CategoryController::class, 'getCategoryCurrPagePosts']); // params ?page=2&size=5
-    Route::get('/{category}', [CategoryController::class, 'getCategoryFilteredPosts']);
-    Route::get('/{category}/count', [CategoryController::class, 'getCategoryPostsCount']);
-});
-
-Route::get('/posts/{id}', [PostController::class, 'getPost']);
-
-Route::post('/tags/store', [TagController::class, 'store']);
-
-Route::get('/posts', [PostController::class, 'index']);

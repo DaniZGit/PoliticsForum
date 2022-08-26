@@ -9,8 +9,12 @@ export const usePostsStore = defineStore("posts", {
     actions: {
         async fetchPosts() {
             try {
-                const res = await axios.get('posts/all')
-                this.posts = res.data
+                const res = await axios.get('posts', {
+                    params: { 
+                        includes: ['tags', 'comments', 'replies', 'category']
+                    }
+                })
+                posts.value = res.data
             } catch (error) {
                 console.log(error)
             }

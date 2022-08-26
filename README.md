@@ -78,3 +78,4 @@ Start the server
     
 # LIBRARIES
     - composer require staudenmeir/eloquent-eager-limit:"^^^^1.0" (https://github.com/staudenmeir/eloquent-eager-limit)
+    - composer require barryvdh/laravel-debugbar --dev (Debugpar -- shows database queries)
