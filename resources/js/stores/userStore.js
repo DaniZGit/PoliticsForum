@@ -27,7 +27,7 @@ export const useUserStore = defineStore("user", {
             this.user.is_authenticated = user.is_authenticated
             this.user.data = user.data
         },
-        isLoggedIn() {
+        loggedIn() {
             return this.user.is_authenticated
         }
     },

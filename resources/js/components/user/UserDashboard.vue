@@ -1,5 +1,5 @@
 <template>
-    <div class="row p-0 m-0 w-100" v-if="store.isLoggedIn()">
+    <div class="row p-0 m-0 w-100" v-if="store.loggedIn()">
         <div class="wrapper col-2 m-0 py-0 ps-3">
             <!-- Sidebar -->
             <div class="sticky-top py-3">
@@ -52,7 +52,7 @@
     const router = useRouter()
     const route = useRoute()
     const store = useUserStore()
-    console.log(store.isLoggedIn())
+    console.log(store.loggedIn())
     console.log(store.user.is_authenticated)
 
     let currentActiveTab = 'PROFILE'
@@ -78,7 +78,7 @@
     onMounted(async () => {
         console.log("hellooo")
         
-        if (!store.isLoggedIn())
+        if (!store.loggedIn())
             router.push({ name: 'UserLogin' })
         else {
             // window.axios.Headers['Authorization'] = `Bearer ${cookie.get('token')}`

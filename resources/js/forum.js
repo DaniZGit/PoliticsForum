@@ -7,7 +7,8 @@ import axios from './axios.js'
 import ForumHome from './components/forum/ForumHome.vue'
 import ForumHomeContent from './components/forum/content/ForumHomeContent.vue'
 import ForumCategoryContent from './components/forum/content/ForumCategoryContent.vue'
-import ForumPostContent from './components/forum/content/ForumPostContent.vue'
+import ForumPostContent from './components/forum/content/post/ForumPostContent.vue'
+import ForumPostCreate from './components/forum/content/post/ForumPostCreate.vue'
 
 // import 'bootstrap/dist/css/bootstrap.css' 
 // ta bootstrap 5.1.3 je drgač kot 5.1.3 cdn link ???
@@ -38,6 +39,7 @@ const routes = [
             { path: '', name: 'ForumHome', component: ForumHomeContent },
             { path: ':category', name: 'ForumCategory', component: ForumCategoryContent, props: true },
             { path: ':category/:post', name: 'ForumPost', component: ForumPostContent },
+            { path: 'create', name: 'ForumPostCreate', component: ForumPostCreate },
         ]
     },
 ]

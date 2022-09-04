@@ -11,12 +11,12 @@
 
             <ul class="navbar-nav d-flex">
                 <li class="nav-item">
-                    <router-link to="/user/dashboard" class="nav-link text-white" v-if="userStore.isLoggedIn()">Profile</router-link>
+                    <router-link to="/user/dashboard" class="nav-link text-white" v-if="userStore.loggedIn()">Profile</router-link>
                 </li>
-                <li class="nav-item" v-if="!userStore.isLoggedIn()">
+                <li class="nav-item" v-if="!userStore.loggedIn()">
                     <router-link to="/user/login" class="nav-link text-white">Login</router-link>
                 </li>
-                <li v-if="!userStore.isLoggedIn()">
+                <li v-if="!userStore.loggedIn()">
                     <router-link to="/user/register" class="nav-link">Register</router-link>
                 </li>
             </ul>

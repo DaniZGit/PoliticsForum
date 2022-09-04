@@ -64,8 +64,8 @@
     import { ref } from '@vue/reactivity'
     import { onMounted } from '@vue/runtime-core'
     import { useRoute } from 'vue-router'
-    import CommentCard from '../partials/CommentCard.vue'
-    import ReplyCard from '../partials/ReplyCard.vue'
+    import CommentCard from '../../partials/CommentCard.vue'
+    import ReplyCard from '../../partials/ReplyCard.vue'
     import axios from 'axios'
 
     let postData = ref(null)

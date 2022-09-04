@@ -11,12 +11,12 @@
 
             <ul class="navbar-nav d-flex">
                 <li class="nav-item">
-                    <a href="/user/dashboard" class="nav-link text-white" v-if="userStore.isLoggedIn()">Profile</a>
+                    <a href="/user/dashboard" class="nav-link text-white" v-if="userStore.loggedIn()">Profile</a>
                 </li>
-                <li class="nav-item" v-if="!userStore.isLoggedIn()">
+                <li class="nav-item" v-if="!userStore.loggedIn()">
                     <a href="/user/login" class="nav-link text-white">Login</a>
                 </li>
-                <li v-if="!userStore.isLoggedIn()">
+                <li v-if="!userStore.loggedIn()">
                     <a href="/user/register" class="nav-link">Register</a>
                 </li>
             </ul>

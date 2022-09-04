@@ -103,7 +103,7 @@
     
 
     onMounted(() => {
-        if (store.isLoggedIn())
+        if (store.loggedIn())
             router.push({ name: 'UserDashboard' })
 
         console.log(store.user)
