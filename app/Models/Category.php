@@ -16,7 +16,7 @@ class Category extends Model
 
     // Relationship with Posts
     public function posts() {
-        return $this->hasMany(Post::class, 'category_id')->orderBy('updated_at', 'DESC')->limit(10);
+        return $this->hasMany(Post::class, 'category_id');
     }
 
     public function scopeFilter($query, array $filters) {

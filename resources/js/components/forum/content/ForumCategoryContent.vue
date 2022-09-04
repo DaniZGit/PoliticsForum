@@ -33,9 +33,10 @@
           
                       </div>
 
-                        <Pagination
-                            v-model="currPage"
-                            :page-count="pageCount"
+                        <Paginate
+                            :v-model="page"
+                            :force-page="page"
+                            :page-count="calculatePageCount"
                             :margin-pages="5"
                             :page-range="10"
                             :click-handler="setCurrentPage"
@@ -44,9 +45,8 @@
                             :first-button-text="'<<<'"
                             :last-button-text="'>>>'"
                             :first-last-button="true"
-                            v-if="getPageCount"
                         >
-                        </Pagination>
+                        </Paginate>
                       
                       
                   </div> <!-- Accordion body end -->
@@ -60,20 +60,21 @@
 
 <script setup>
     import PostCard from '../partials/PostCard.vue'
-    import Pagination from '../../../../..//node_modules/vuejs-paginate-next'
+    import Paginate from '../../../../..//node_modules/vuejs-paginate-next'
     import { ref } from '@vue/reactivity'
-    import { computed, onMounted, watch } from '@vue/runtime-core'
+    import { computed, onMounted, onUnmounted, watch } from '@vue/runtime-core'
     import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
+    import { getCurrentInstance } from "vue";
     import axios from 'axios'
 
     let category = ref(null)
-    let currPage = ref(1)
-    let postsPerPage = ref(25)
-    let postCount = ref(0)
-    let pageCount = ref(0)
+    let page = ref(1)
+    let perPage = ref(25)
+    let postsCount = ref(0)
     let tagsChanged = ref(false)
 
     const route = useRoute()
+    const instance = getCurrentInstance()
 
     const props = defineProps([
         'categories',
@@ -86,7 +87,6 @@
     onMounted(() => {
         // če je stran refreshed oz. ni prišla iz /forum/
         if(!props.categories){
-            console.log('lej ka ni pršlja')
             fetchCategory()
         } else {
             setupCategory()
@@ -97,14 +97,22 @@
 
     // methods
     const fetchCategory = (async () => {
-        console.log('parma ios ' + route.params.category)
         try {
             const res = await axios.get(`categories/${route.params.category}`, {
                 params: { 
-                    includes: ['posts', 'tags', 'comments', 'replies']
+                    includes: ['posts', 'tags', 'comments', 'replies'],
+                    tags: props.activeTags.filter((tag) => tag.active).map((tag) => tag.name),
+                    page: page.value,
+                    perPage: perPage.value
                 }
             })
             category.value = res.data
+            postsCount.value = category.value.posts_count
+            
+            if (page.value > calculatePageCount.value) {
+                page.value = calculatePageCount.value
+                page.value = calculatePageCount.value
+            }
         } catch (error) {
             console.log(error)
         }
@@ -114,14 +122,19 @@
         let categoryName = route.params.category
         // find current category data from propped 'categories'
         category.value = props.categories.find((category) => category.name === categoryName)
+        postsCount.value = category.value.posts_count
+    })
+
+    const refreshCategory = (() => {
+
     })
 
     const refreshRightSidebar = ((post) => {
         emit('refreshRightSidebar', post)
     })
 
-    const setCurrentPage = ((page) => {
-        currPage.value = page
+    const setCurrentPage = ((newPage) => {
+        page.value = newPage
         //this.fetchCategory()
         
         //if(!this.tagsChanged){
@@ -130,15 +143,16 @@
         //}
 
         window.scrollTo(0,0);
-
+        fetchCategory()
     })
 
-    const getPageCount = (() => {
-        return Math.ceil( postCount.value / postsPerPage.value )
+    const calculatePageCount = computed(() => {
+        return Math.ceil( postsCount.value / perPage.value )
     })
 
     // watchers
     // nisem sure če to dela, neki vem da nrdi....
+    /*
     watch(() => route.path, (to, from) => {
         if(route.params.category != category.value.name){
             if(route.name === "ForumCategory") {
@@ -146,16 +160,20 @@
                 props.activeTags.forEach(t => {
                     t.active = false
                 });
-            }
 
-            setupCategory()
+                setupCategory()
+            }
         }
     })
+    */
     
-
     watch(() => props.activeTags, (newActiveTags, oldActiveTags) => {
         tagsChanged.value = true
-        refreshPage()
+        fetchCategory()
+    }, { deep: true })
+
+    onUnmounted(() => {
+        props.activeTags.forEach((tag) => tag.active = false)
     })
 
 

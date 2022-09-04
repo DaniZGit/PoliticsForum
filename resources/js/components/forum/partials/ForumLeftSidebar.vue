@@ -4,7 +4,7 @@
             <h4 class="mb-2">Categories</h4>
             <div id="list-example" class="list-group">
                 <router-link :to="'/forum/' + category.name" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center rounded-pill border h8" v-for="category in props.categoryNames" :key="category.name">
-                    {{ category.name }} <span class="badge bg-primary rounded-pill">{{ category.posts.length }}</span>
+                    {{ category.name }} <span class="badge bg-primary rounded-pill">{{ category.posts_count }}</span>
                 </router-link>
             </div>
         </div>
@@ -50,6 +50,7 @@
                     class="badge bg-primary rounded-pill"
                     :class="{'active-count': tag.active}"
                     >{{ tag.tagCount }}</span></a>
+                <button @click="filterByTags">FILTER</button>
             </div>
         </div>
 
@@ -82,8 +83,7 @@
         queriedTags = queriedTags.substring(0, queriedTags.length - 1)
         this.$router.replace({ query: { 'tags': queriedTags }})
         */
-
-        emit('tagsToggled', props.tags.filter((tag) => tag.active))
+       emit('tagsToggled', props.tags)
     })
 
     const resetToggles = (() => {
@@ -91,7 +91,11 @@
             tag.active = false
         });
 
-        emit('tagsToggled', props.tags.filter((tag) => tag.active))
+        emit('tagsToggled', props.tags)
+    })
+
+    const filterByTags = (() => {
+        emit('tagsToggled', props.tags)
     })
 </script>
 

@@ -18,28 +18,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(5)->create();
-        /*
+        // \App\Models\User::factory(5)->create();
+        
         // create categories
         $this->createCategories();
 
         // create tags
-
         $this->createTags();
 
-        $amount = 60;
-        $commentAmount = 100;
-        $replyAmount = 75;
-        \App\Models\User::factory(100)->create();
+        $postAmount = 4000;
+        $commentAmount = 3500;
+        $replyAmount = 3000;
+        $userAmount = 400;
+        \App\Models\User::factory($userAmount)->create();
 
         // posts
-        \App\Models\Post::factory($amount)->create();
+        \App\Models\Post::factory($postAmount)->create();
 
         // tags
         $tags = Tag::all();
-        $posts = Post::latest()->limit($amount)->get();
+        $posts = Post::latest()->limit($postAmount)->get();
         foreach ($posts as $post) {
-            $randNum = rand(2, count($tags));
+            $randNum = rand(2, count($tags)-3);
             $randomTags = Tag::orderBy("name", "ASC")->get()->random($randNum);
             $post->tags()->attach($randomTags);
         }
@@ -49,7 +49,6 @@ class DatabaseSeeder extends Seeder
 
         // replies
         Reply::factory($replyAmount)->create();
-        */
     }
 
     function createCategories() {

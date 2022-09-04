@@ -31,7 +31,7 @@
         <!-- Left sidebar -->  
         <div class="col-2 border border-top-0 py-3 border-dark border-end-0">
             <div class="sidebar-categories sticky-top">
-                <forum-left-sidebar :categoryNames="categoryNames" :tags="tags" @tagsToggled="tagsToggled" v-if="categories"></forum-left-sidebar>
+                <forum-left-sidebar :categoryNames="categoryNames" :tags="tags" @tagsToggled="tagsToggled" v-if="categories" ref="leftSidebar"></forum-left-sidebar>
             </div>
         </div>
 
@@ -77,6 +77,7 @@
     let tags = ref(null)
     let activeTags = ref([])
     let userStore = useUserStore()
+    const leftSidebar = ref(null)
 
     onMounted(() => {
         fetchCategories()
