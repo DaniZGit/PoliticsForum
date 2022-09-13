@@ -18,41 +18,39 @@
         </div>
         
         <!-- Main content -->
-        <div class="d-flex flex-column gap-4">
-            <!-- Main Post -->
-            <div class="container-fluid p-0 d-flex flex-row">
-                <div class="flex-shrink-0 p-4 border-2 border border-end-0 border-primary rounded-start text-center align-self-baseline">
-                    <img 
-                        :src="postData.user.profile_picture" 
-                        alt="..." 
-                        class="rounded-circle img-fluid justify-content-center mb-1 border"
-                    >
-                    <h6 class="m-0 text-dark fw-bold"><a href="#profile" class="text-decoration-none text-dark">{{ postData.user.name }}</a></h6>
-                </div>
-
-                <div class=" border-2 border border-primary rounded-end">
-                    <h3 class="p-3 d-inline-block fw-bold">
-                        {{ postData.title }}
-                    </h3>
-
-                    <div class="h5 p-3">
-                        {{ postData.description }}
-                    </div>
-
-                    <div class="d-flex flex-wrap gap-2 border-top p-3">
-                        <a href="#" 
-                            v-for="tag in postData.tags" 
-                            :key="tag.id" class="h6 bg-dark align-self-center m-0 p-2 rounded text-white text-decoration-none">{{ tag.name }}</a>
-                    </div>
-                </div>
+        <!-- Main Post -->
+        <div class="container row">
+            <div class="col-2 p-3 border-2 border border-end-0 border-primary rounded-start text-center align-self-baseline">
+                <img 
+                    :src="postData.user.profile_picture" 
+                    alt="..." 
+                    class="rounded-circle img-fluid justify-content-center mb-1 border"
+                >
+                <h6 class="m-0 text-dark fw-bold"><a href="#profile" class="text-decoration-none text-dark">{{ postData.user.name }}</a></h6>
             </div>
 
-            <div class="d-flex flex-column gap-3">
-                <div v-for="comment in postData.comments.sort((a, b) => a.likes < b.likes ? 1 : -1)" :key="comment.id">
-                    <comment-card  :comment="comment"></comment-card>
-                    <reply-card v-for="reply in comment.replies.sort((a, b) => a.likes < b.likes ? 1 : -1)" :key="reply.id" :reply="reply"></reply-card>
+            <div class="col-10 border-2 border border-primary rounded-end">
+                <h3 class="p-3 d-inline-block fw-bold">
+                    {{ postData.title }}
+                </h3>
+
+                <div class="h5 p-3">
+                    <!--{{ postData.description }}-->
+                    <post-editor v-model="postData.description" :editable="false"></post-editor>
                 </div>
-                
+
+                <div class="d-flex flex-wrap gap-2 border-top p-3">
+                    <a href="#" 
+                        v-for="tag in postData.tags" 
+                        :key="tag.id" class="h6 bg-dark align-self-center m-0 p-2 rounded text-white text-decoration-none">{{ tag.name }}</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-column gap-3">
+            <div v-for="comment in postData.comments.sort((a, b) => a.likes < b.likes ? 1 : -1)" :key="comment.id">
+                <comment-card  :comment="comment"></comment-card>
+                <reply-card v-for="reply in comment.replies.sort((a, b) => a.likes < b.likes ? 1 : -1)" :key="reply.id" :reply="reply"></reply-card>
             </div>
             
         </div>
@@ -67,6 +65,8 @@
     import CommentCard from '../../partials/CommentCard.vue'
     import ReplyCard from '../../partials/ReplyCard.vue'
     import axios from 'axios'
+    // tiptap editor
+    import PostEditor from '../../partials/PostEditor.vue'
 
     let postData = ref(null)
     let props = defineProps(['post'])

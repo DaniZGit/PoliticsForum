@@ -37,7 +37,7 @@
 
         <!-- Middle content -->
         <div class="col-8 border border-top-0 py-3 border-dark" id="forumContent">
-            <router-view @refreshRightSidebar="refreshRightSidebar" :categories="categories" :post="post" :activeTags="activeTags" :key='$route.fullPath'></router-view>
+            <router-view @refreshRightSidebar="refreshRightSidebar" :categories="categories" :post="post" :activeTags="activeTags" :key='$route.fullPath' v-if="categories && tags"></router-view>
             <!--<forum-home-content @refreshRightSidebar="refreshRightSidebar"></forum-home-content>-->
         </div>
 
@@ -68,7 +68,7 @@
     import { mapStores } from 'pinia'
     import { useUserStore } from '../../stores/userStore'
     import { ref } from '@vue/reactivity'
-    import { onMounted } from '@vue/runtime-core'
+    import { onMounted, provide } from '@vue/runtime-core'
     import axios from 'axios'
 
     let post = ref(null)
@@ -135,4 +135,8 @@
         console.log(activeTags.value)
         activeTags.value = emmittedActiveTags
     })
+
+    // provides
+    provide('tags', tags)
+    provide('categories', categories)
 </script>

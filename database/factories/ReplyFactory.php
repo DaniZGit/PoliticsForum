@@ -14,8 +14,8 @@ class ReplyFactory extends Factory
     public function definition()
     {
         return [
-            "comment_id" => $this->faker->numberBetween(1, 3500),
-            "user_id" => $this->faker->numberBetween(1, 400),
+            "comment_id" => $this->faker->numberBetween(1, 35000),
+            "user_id" => $this->faker->numberBetween(1, 4000),
             "description" => $this->faker->paragraph($this->faker->numberBetween(5,15)),
             "likes" => $this->faker->numberBetween(1, 150),
             "dislikes" => $this->faker->numberBetween(1, 50),

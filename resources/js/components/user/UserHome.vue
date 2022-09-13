@@ -59,12 +59,14 @@
     let usersFetchTimer = null
     onMounted(async () => {
         // fetch users at the start
-        userStore.fetchUsers()
+        // userStore.fetchUsers()
 
         // fetch users every 10 seconds (in background)
+        /*
         usersFetchTimer = setInterval(() => {
             userStore.fetchUsers()
         }, 10000)
+        */
     })
 
     // let postStates = storeToRefs(postsStore)

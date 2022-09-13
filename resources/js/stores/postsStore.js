@@ -8,6 +8,8 @@ export const usePostsStore = defineStore("posts", {
     }),
     actions: {
         async fetchPosts() {
+            console.log('fetching posts')
+            /*
             try {
                 const res = await axios.get('posts', {
                     params: { 
@@ -18,6 +20,7 @@ export const usePostsStore = defineStore("posts", {
             } catch (error) {
                 console.log(error)
             }
+            */
         }
     },
     persist: {
