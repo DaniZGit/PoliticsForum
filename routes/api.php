@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/posts')->group(function() {
     Route::get('/', [PostController::class, 'getPosts']);
     Route::get('/{id}', [PostController::class, 'getPost']);
+    Route::post('/create', [PostController::class, 'createPost'])->middleware('auth:sanctum');
 });
 
 /* categories */
@@ -46,6 +47,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/users', [UserController::class, 'getUsers']);
 Route::post('/users/login', [UserController::class, 'login']);
 Route::post('/users/register', [UserController::class, 'register']);
-Route::post('/users/logout', [UserController::class, 'logout'])
-    ->middleware('auth:sanctum');
+Route::post('/users/logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
 Route::get('/users/{id}', [UserController::class, 'getUser']);

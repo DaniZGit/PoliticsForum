@@ -9,7 +9,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    {{ props.post.description }}
+                    <post-editor v-model="props.post.description" :editable="false"></post-editor>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger w-100" data-bs-dismiss="modal">Close</button>
@@ -75,8 +75,13 @@
 </template>
 
 <script setup>
+    // tiptap editor
+    import { watch } from '@vue/runtime-core'
+    // tiptap editor
+    import PostEditor from '../partials/PostEditor.vue'
 
     const props = defineProps(['post'])
+
 </script>
 
 

@@ -14,8 +14,8 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            "post_id" => $this->faker->numberBetween(1, 4000),
-            "user_id" => $this->faker->numberBetween(1, 400),
+            "post_id" => $this->faker->numberBetween(1, 40000),
+            "user_id" => $this->faker->numberBetween(1, 4000),
             "description" => $this->faker->paragraph($this->faker->numberBetween(5,15)),
             "likes" => $this->faker->numberBetween(1, 150),
             "dislikes" => $this->faker->numberBetween(1, 50),
