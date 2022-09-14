@@ -25,7 +25,7 @@ Pages being worked on:
 
 # Video
 
-Here is a link to 1 minute speedrun of the site: https://youtu.be/pxGDl2HJkpI
+Here is a link to 3 minute speedrun of the site: https://youtu.be/fKagjj7Dqqo
 
 # Setup
 
