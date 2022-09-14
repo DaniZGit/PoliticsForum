@@ -62,7 +62,7 @@ run all the migrations (run all commands below before running server)
 
     php artisan db:seed
 
-Seeding might take some time since there are around 40000 posts that need inserting...
+Seeding might take some time since there are around 40000 posts that get inserted...
 
 ## Start Project (run on seperate terminals)
 
