@@ -86,8 +86,10 @@ class PostController extends Controller
 
         $this->attachTagsToThePost($post, $request['tags']);
         
-        $post['category'] = $post->category()->first();
-        return $post;
+        return [
+            'post' => $post->load(['user', 'tags', 'comments.user', 'comments.replies.user']), 
+            'category' => $post->category()->first()
+        ];
     }
 
     function attachTagsToThePost($post, $tags)

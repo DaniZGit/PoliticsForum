@@ -46,11 +46,11 @@
 <script setup>
     import {computed, onBeforeUnmount, onMounted, onUnmounted, ref, toRef, toRefs } from 'vue'
     import { useUserStore } from '../../stores/userStore'
-    import { usePostsStore } from '../../stores//postsStore'
+    import { useCategoryStore } from '../../stores/categoryStore'
     // import { storeToRefs } from 'pinia'
 
     const userStore = useUserStore()
-    const postsStore = usePostsStore()
+    const postsStore = useCategoryStore()
     
     /*                 */
     /* fetch users */
@@ -70,9 +70,10 @@
     })
 
     // let postStates = storeToRefs(postsStore)
-    let posts = computed(() => postsStore.posts)
+    let posts = computed(() => postsStore.categories)
     let postsFetchTimer = null
     onMounted(() => {
+        /*
         // fetch posts at the start
         postsStore.fetchPosts()
 
@@ -80,6 +81,7 @@
         postsFetchTimer = setInterval(() => {
             postsStore.fetchPosts()
         }, 10000)
+        */
     })
     onBeforeUnmount(() => {
         clearInterval(postsFetchTimer)

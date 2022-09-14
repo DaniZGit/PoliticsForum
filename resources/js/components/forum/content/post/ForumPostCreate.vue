@@ -132,6 +132,7 @@
 <script setup>
 
     import { useUserStore } from '../../../../stores/userStore'
+    import { useCategoryStore } from '../../../../stores/categoryStore'
     import axios from 'axios'
     import { computed, inject, onMounted, ref, watch } from '@vue/runtime-core'
     import { useRouter } from 'vue-router'
@@ -139,6 +140,7 @@
     import PostEditor from '../../partials/PostEditor.vue'
 
     let userStore = useUserStore()
+    let categoriesStore = useCategoryStore()
     let router = useRouter()
 
     let postDescription = ref('<p><strong>Please write a description about the title</strong></p><p>Don\'t forget to select:</p><ul><li><p><em>category</em></p></li><li><p><em>tags</em></p></li></ul><p><a target="_blank" rel="noopener noreferrer nofollow" href="http://w3schools.com">w3schools.com</a></p><p>Description needs to include at least <u>50 words</u> !</p>')
@@ -170,7 +172,7 @@
             router.push('/forum')
         }
 
-        addedTags.value = tags.value.slice()
+        addedTags.value = JSON.parse(JSON.stringify(tags.value)) // this might be slow...
     })
 
     // textarea watchers
@@ -267,8 +269,12 @@
                 categoryID: selectedCategoryId.value
             })
 
-            const postID = res.data.id
+            const postID = res.data.post.id
             const category = res.data.category.name
+
+            // add newly created post to the store, so it gets displayed on the categories page instantly
+            categoriesStore.addPost(res.data.post)
+
             // redirect user to his newly created post
             router.push(`/forum/${category}/${postID}`)
         } catch (error) {
