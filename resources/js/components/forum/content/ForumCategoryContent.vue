@@ -8,11 +8,12 @@
                     <div class="p-1 bg-white">
 
                     </div>
-                    <router-link to="/forum/" id="arrow-right" class="position-absolute text-white text-decoration-none py-3 start-0 ps-4 h6" style="z-index: 1100;"><i class="bi bi-arrow-left"></i> Nazaj</router-link>
 
+                    <router-link to="/forum/" id="arrow-right" class="position-absolute text-white text-decoration-none py-3 start-0 ps-4 h6" style="z-index: 1100;"><i class="bi bi-arrow-left"></i> Nazaj</router-link>
                     <h2 class="accordion-header position-absolute py-2 ps-2 text-white w-100 text-center" id="headingOne">
                         {{ route.params.category }}
                     </h2>
+                    <router-link to="/forum/create" id="arrow-right" class="position-absolute text-white text-decoration-none py-3 end-0 pe-4 h6" style="z-index: 1100;" @click="refreshRightSidebar(null)">Nova objava</router-link>
 
                     <button class="container-fluid border-1 rounded bg-primary text-white text-center py-4" type="button">
                     

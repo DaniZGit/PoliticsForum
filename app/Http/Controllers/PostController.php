@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class PostController extends Controller
 {
@@ -69,5 +71,45 @@ class PostController extends Controller
         });
 
         return $query->with('user')->find($id);
+    }
+
+    public function createPost(Request $request)
+    {   
+        $user = $request->user();
+
+        $post = new Post;
+        $post->title = $request['title'];
+        $post->description = $request['description'];
+        $post->user_id = $user['id'];
+        $post->category_id = $request['categoryID'];
+        $post->save();
+
+        $this->attachTagsToThePost($post, $request['tags']);
+        
+        return [
+            'post' => $post->load(['user', 'tags', 'comments.user', 'comments.replies.user']), 
+            'category' => $post->category()->first()
+        ];
+    }
+
+    function attachTagsToThePost($post, $tags)
+    {
+        $tagIDs = array();
+        foreach ($tags as $tag) {
+            $existingTag = Tag::where('name', $tag['name'])->first();
+            if(!$existingTag)
+            {
+                $newTag = new Tag;
+                $newTag->name = $tag['name'];
+                $newTag->save();
+                $tagIDs[] = $newTag['id'];
+            }
+            else 
+            {
+                $tagIDs[] = $existingTag['id'];
+            }
+        }
+
+        $post->tags()->attach($tagIDs);
     }
 }

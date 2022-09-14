@@ -50,7 +50,7 @@
                     class="badge bg-primary rounded-pill"
                     :class="{'active-count': tag.active}"
                     >{{ tag.tagCount }}</span></a>
-                <button @click="filterByTags">FILTER</button>
+                <!--<button @click="filterByTags">FILTER</button>-->
             </div>
         </div>
 

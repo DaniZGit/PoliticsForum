@@ -26,10 +26,10 @@ class DatabaseSeeder extends Seeder
         // create tags
         $this->createTags();
 
-        $postAmount = 4000;
-        $commentAmount = 3500;
-        $replyAmount = 3000;
-        $userAmount = 400;
+        $postAmount = 40000;
+        $commentAmount = 35000;
+        $replyAmount = 30000;
+        $userAmount = 4000;
         \App\Models\User::factory($userAmount)->create();
 
         // posts
