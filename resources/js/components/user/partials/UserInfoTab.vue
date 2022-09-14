@@ -14,7 +14,7 @@
                             accept="image/*"
                         />
                         <img 
-                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                            :src="user.profile_picture ? user.profile_picture : 'https://www.w3schools.com/w3css/img_avatar3.png'"
                             alt="" 
                             class="aspect-ratio rounded-circle profile-picture img-fluid"
                             id="profilePicture"
