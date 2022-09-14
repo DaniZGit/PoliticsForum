@@ -67,16 +67,20 @@
 
     import { mapStores } from 'pinia'
     import { useUserStore } from '../../stores/userStore'
+    import { useCategoryStore } from '../../stores/categoryStore'
     import { ref } from '@vue/reactivity'
-    import { onMounted, provide } from '@vue/runtime-core'
+    import { computed, onMounted, provide } from '@vue/runtime-core'
     import axios from 'axios'
 
+    let userStore = useUserStore()
+    let categoriesStore = useCategoryStore()
+
     let post = ref(null)
-    let categories = ref(null)
+    let categories = computed(() => categoriesStore.getCategories())
     let categoryNames = ref(null)
     let tags = ref(null)
     let activeTags = ref([])
-    let userStore = useUserStore()
+    
     const leftSidebar = ref(null)
 
     onMounted(() => {
@@ -91,17 +95,8 @@
     })
 
     // fetch functions
-    async function fetchCategories() {
-        try {
-            const res = await axios.get('categories', {
-                params: { 
-                    includes: ['posts', 'tags', 'comments', 'replies']
-                }
-            })
-            categories.value = res.data
-        } catch (error) {
-            console.log(error)
-        }
+    function fetchCategories() {
+        categoriesStore.fetchCategories()
     }
 
     async function fetchCategoryNames() {
