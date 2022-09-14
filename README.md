@@ -5,23 +5,27 @@ This is a forum based on politics
 It's being developed using Laravel and Vue.js<br/>
 Authorization is being done using Sanctum and Vuex(for storing tokens)
 
-Currently i only implemented 3 pages:
+Working pages:
     
     / or /forum/
     
-    /forum/{category} --> turizem, gospodarstvo, kultura, kmetijstvo
+    /forum/{category} --> category: turizem, gospodarstvo, kultura, kmetijstvo
     
     /forum/{category}/{id}
 
-Pages being worked on:
-
-    /user
+    /forum/create --> to create a post
 
     /user/login
 
     /user/register
 
     /user/dashboard
+
+TODO:
+
+    /user/dashboard --> show user details, created posts, comments
+
+    /forum/create --> improve editor
 
 # Video
 
